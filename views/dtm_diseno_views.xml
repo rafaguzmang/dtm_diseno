@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <data>
+        <record id="dtm_diseno_tree" model="ir.ui.view">
+            <field name="name">dtm_diseno_tree</field>
+            <field name="model">dtm.diseno</field>
+            <field name="arch" type="xml">
+                <tree >
+                    <field name="drawingname"/>
+                    <field name="sheets"/>
+                </tree>
+            </field>
+        </record>
+
+         <record id="dtm_diseno_form" model="ir.ui.view">
+            <field name="name">dtm_diseno_form</field>
+            <field name="model">dtm.diseno</field>
+            <field name="arch" type="xml">
+            <form string="">
+                <header>
+                    <button name="acction_button" type="object" string="Cargar Tabla"/>
+                </header>
+                <sheet>
+                    <group string="Material">
+                        <field name="material_id"/>
+                    </group>
+                    <group>
+                        <field name="drawingname"/>
+                        <field name="sheets"/>
+                    </group>
+                </sheet>
+            </form>
+            </field>
+        </record>
+    
+        <record id="dtm_diseno_accion" model="ir.actions.act_window">
+            <field name="name">Diseño</field>
+            <field name="res_model">dtm.diseno</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem id="dtm_diseno" parent="" action="dtm_diseno_accion"/>
+    </data>
+   
+</odoo>
