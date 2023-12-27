@@ -1,4 +1,4 @@
 id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
 access_dtm_diseno,access.dtm.diseno,model_dtm_diseno,base.group_user,1,1,1,1
-access_dtm_materiales_diseno,access.dtm.materiales.diseno,model_dtm_materiales_diseno,base.group_user,1,1,1,1
+
 

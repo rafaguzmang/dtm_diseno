@@ -6,9 +6,10 @@
             <field name="name">dtm_diseno_tree</field>
             <field name="model">dtm.diseno</field>
             <field name="arch" type="xml">
-                <tree >
-                    <field name="drawingname"/>
-                    <field name="sheets"/>
+                <tree editable="bottom">
+                    <field name="material_id"></field>
+                    <field name="drawingname"></field>
+                    <field name="sheets"></field>
                 </tree>
             </field>
         </record>
@@ -18,17 +19,13 @@
             <field name="model">dtm.diseno</field>
             <field name="arch" type="xml">
             <form string="">
-                <header>
-                    <button name="acction_button" type="object" string="Cargar Tabla"/>
-                </header>
                 <sheet>
-                    <group string="Material">
-                        <field name="material_id"/>
-                    </group>
                     <group>
-                        <field name="drawingname"/>
-                        <field name="sheets"/>
+                        <field name="material_id" create="false"></field>
+                        <field name="drawingname"></field>
+                        <field name="sheets"></field>
                     </group>
+
                 </sheet>
             </form>
             </field>
