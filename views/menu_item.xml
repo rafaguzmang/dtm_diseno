@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+     <menuitem name="Diseño" id="menu_root_dtm_diseno">
+        <menuitem id="menu_dtm_diseno"  action="dtm_diseno.dtm_diseno_accion" />
+        <menuitem id="menu_dtm_diseno_realizados"  action="dtm_diseno.dtm_diseno_realizados_accion" />
+        <menuitem id="menu_dtm_diseno_materiales"  action="dtm_diseno.dtm_diseno_materiales_accion" />
+     </menuitem>
+</odoo>
