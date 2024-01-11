@@ -27,13 +27,13 @@ class Materiales(models.Model):
     _description = "Carga la tabla de materiales del Modulo dtm_materiales para uso del diseñador"
 
     material = fields.Char(string="MATERIAL")
-    calibre = fields.Char(string="CALIBRE")
-    largo = fields.Char(string="LARGO")
-    ancho = fields.Char(string="ANCHO")
-    area = fields.Char(string="AREA")
-    cantidad = fields.Char(string="STOCK")
-    apartado = fields.Char(string="APARTADO")
-    disponible = fields.Char(string="DISPONIBLE")
+    calibre = fields.Float(string="CALIBRE")
+    largo = fields.Float(string="LARGO")
+    ancho = fields.Float(string="ANCHO")
+    area = fields.Float(string="AREA")
+    cantidad = fields.Integer(string="STOCK")
+    apartado = fields.Integer(string="APARTADO")
+    disponible = fields.Integer(string="DISPONIBLE")
 
     def get_view(self, view_id=None, view_type='form', **options):
         res = super(Materiales,self).get_view(view_id, view_type,**options)
