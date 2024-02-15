@@ -93,8 +93,8 @@ class ListMaterial(models.Model):
     def _compute_attachment_ids(self):
         for result in self:
             get_anex = self.env['dtm.documentos.anexos'].search([("id","=",result.id)])
+            lines = []
             for get in get_anex:
-                lines = []
                 line =(4,get.id,{})
                 lines.append(line)
             result.attachment_ids = lines
