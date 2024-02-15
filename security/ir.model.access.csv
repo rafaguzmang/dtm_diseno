@@ -2,5 +2,9 @@ id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
 access_dtm_diseno,access.dtm.diseno,model_dtm_diseno,base.group_user,1,1,1,1
 access_dtm_diseno_realizados,access.dtm.diseno.realizados,model_dtm_diseno_realizados,base.group_user,1,1,1,1
 access_dtm_diseno_materiales,access.dtm.diseno.materiales,model_dtm_diseno_materiales,base.group_user,1,1,1,1
+access_dtm_diseno_necesidades,access.dtm.diseno.necesidades,model_dtm_diseno_necesidades,base.group_user,1,1,1,1
+access_dtm_diseno_list_material,access.dtm.diseno.list.material,model_dtm_diseno_list_material,base.group_user,1,1,1,1
+
+
 
 
