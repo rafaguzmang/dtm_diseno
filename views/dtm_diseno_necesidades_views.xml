@@ -69,12 +69,12 @@
 
                                             <field name="attachment_ids" widget='one2many' readonly='0' >
                                                 <tree>
-                                                    <field name="nombre" invisible="0"></field>
+<!--                                                    <field name="nombre" invisible="0"></field>-->
                                                 </tree>
                                                 <form>
                                                     <group widget='one2many'>
-                                                        <field name="documentos" filename="nombre"></field>
-                                                        <field name="nombre" invisible="1"></field>
+<!--                                                        <field name="documentos" ></field>-->
+<!--                                                        <field name="nombre" invisible="1"></field>-->
                                                     </group>
                                                 </form>
                                             </field>

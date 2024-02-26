@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+       <data>
+             <record id="dtm_diseno_almacen_tree" model="ir.ui.view">
+                <field name="name">dtm_diseno_almacen_tree</field>
+                <field name="model">dtm.diseno.almacen</field>
+                <field name="arch" type="xml">
+                    <tree create="True" editable="bottom">
+                        <field name="id"></field>
+                        <field name="nombre"></field>
+                        <field name="medida"></field>
+                        <field name="caracteristicas"></field>
+                        <field name="cantidad" invisible = "1"></field>
+                    </tree>
+                </field>
+            </record>
+
+            <record id="dtm_diseno_almacen_accion" model="ir.actions.act_window">
+                <field name="name">Almacén de Diseño</field>
+                <field name="res_model">dtm.diseno.almacen</field>
+                <field name="view_mode">tree</field>
+    <!--            <field name="view_id" ref="dtm_diseno_realizados_tree" />-->
+            </record>
+
+<!--            <record id="dtm_diseno_almacen_form" model="ir.ui.view">-->
+<!--                <field name="name">dtm_diseno_almacen_form</field>-->
+<!--                <field name="model">dtm.diseno.almacen</field>-->
+<!--                <field name="arch" type="xml">-->
+<!--                        <form string="">-->
+<!--                            <sheet>-->
+<!--                                <group>-->
+<!--                                    <field name="nombre"></field>-->
+<!--                                    <field name="medida"></field>-->
+<!--                                    <field name="caracteristicas"></field>-->
+<!--                                </group>-->
+<!--                            </sheet>-->
+<!--                        </form>-->
+<!--                </field>-->
+<!--            </record>-->
+
+<!--        <menuitem id="dtm_diseno_almacen_menu" action="dtm_diseno_almacen_accion" />-->
+       </data>
+
+
+</odoo>

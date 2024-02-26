@@ -4,6 +4,7 @@ access_dtm_diseno_realizados,access.dtm.diseno.realizados,model_dtm_diseno_reali
 access_dtm_diseno_materiales,access.dtm.diseno.materiales,model_dtm_diseno_materiales,base.group_user,1,1,1,1
 access_dtm_diseno_necesidades,access.dtm.diseno.necesidades,model_dtm_diseno_necesidades,base.group_user,1,1,1,1
 access_dtm_diseno_list_material,access.dtm.diseno.list.material,model_dtm_diseno_list_material,base.group_user,1,1,1,1
+access_dtm_diseno_almacen,access.dtm.diseno.almacen,model_dtm_diseno_almacen,base.group_user,1,1,1,1
 
 
 

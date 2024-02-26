@@ -2,6 +2,7 @@ from odoo import api,fields,models
 
 class DisenoMateriales(models.Model):
     _name = 'dtm.diseno'
+    _description = "Modulo del área de diseño"
 
     drawingname  = fields.Char(string="DRAWINGNAME")
     sheets = fields.Char(string="SHEETS")
@@ -12,20 +13,16 @@ class DisenoMateriales(models.Model):
         if self.material_id.id:
             self.env.cr.execute("UPDATE dtm_materiales SET apartado = "+ str(self.sheets) +" WHERE id = " + str(self.material_id.id))
 
-
 class Realizados(models.Model):
     _name = "dtm.diseno.realizados"
     _description = "Lleva el listado de todo el material cortado en la Laser"
-
     drawingname  = fields.Char(string="DRAWINGNAME")
     sheets = fields.Char(string="SHEETS")
     material_id = fields.Char(string="MATERIALES")
 
-
 class Materiales(models.Model):
     _name = "dtm.diseno.materiales"
     _description = "Carga la tabla de materiales del Modulo dtm_materiales para uso del diseñador"
-
     material = fields.Char(string="MATERIAL")
     calibre = fields.Float(string="CALIBRE")
     largo = fields.Float(string="LARGO")
