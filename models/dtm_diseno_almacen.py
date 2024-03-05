@@ -37,6 +37,7 @@ class Materiales(models.Model):
     def clean_table(self,myset):
         get_info = self.env['dtm.diseno.almacen'].search([])
         no_repeat = set(myset)
+        print(no_repeat)
         for get in get_info:
             if get.nombre+get.medida not in no_repeat:
                 self.env.cr.execute("DELETE FROM dtm_diseno_almacen WHERE nombre='"+get.nombre+"' AND medida='"+get.medida+"'")
@@ -87,6 +88,7 @@ class Materiales(models.Model):
             medida = str(perfiles.alto) + " x " + str(perfiles.ancho) + " @ " + str(perfiles.calibre) +", " + str(perfiles.largo)
             get_info = self.env['dtm.diseno.almacen'].search([("nombre","=",nombre),("medida","=",medida)])
             self.insertar(str(perfiles.cantidad),nombre,medida,get_info)
+            myset.append(nombre+medida)
             id += 1
 
         for pintura in get_pintura:
