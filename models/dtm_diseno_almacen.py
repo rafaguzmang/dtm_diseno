@@ -7,8 +7,8 @@ class Materiales(models.Model):
     # _rec_name = "nombre"
 
     # numero = fields.Integer(string="Número")
-    nombre = fields.Char(string="Nombre", readonly=False,compute="_compute_id",store=True)
-    medida = fields.Char(string="MedidaS", readonly=False)
+    nombre = fields.Char(string="Nombre", readonly=False,compute="_compute_id",store=True, require=True)
+    medida = fields.Char(string="Medidas", readonly=False)
     caracteristicas = fields.Char(string="Caracteristicas", readonly=False)
     cantidad = fields.Integer()
 
@@ -32,6 +32,7 @@ class Materiales(models.Model):
             if existe:
                 self.env.cr.execute("UPDATE dtm_diseno_almacen SET cantidad="+cantidad+" WHERE nombre='"+nombre+"' and medida='"+medida+"'")
             else:
+                print(nombre)
                 self.env.cr.execute("INSERT INTO dtm_diseno_almacen ( cantidad, nombre, medida) VALUES ("+cantidad+", '"+nombre+"', '"+medida+"')")
 
     def clean_table(self,myset):
@@ -88,7 +89,11 @@ class Materiales(models.Model):
             medida = str(perfiles.alto) + " x " + str(perfiles.ancho) + " @ " + str(perfiles.calibre) +", " + str(perfiles.largo)
             get_info = self.env['dtm.diseno.almacen'].search([("nombre","=",nombre),("medida","=",medida)])
             self.insertar(str(perfiles.cantidad),nombre,medida,get_info)
+<<<<<<< HEAD
             myset.append(nombre+medida)
+=======
+            myset.append(nombre + medida)
+>>>>>>> 6e7dce0855a04935887821dd8caeab3f07caea76
             id += 1
 
         for pintura in get_pintura:
@@ -160,7 +165,7 @@ class Materiales(models.Model):
                         get_id = self.env['dtm.diseno.almacen'].search([("id","=",iterator)])
                         if not get_id:
                             # print("iterator",get_id.nombre)
-                            self.env.cr.execute("INSERT INTO dtm_diseno_almacen (id,nombre,medida,cantidad) VALUES ("+str(iterator)+",'"+get.nombre+"','"+get.medida+"', 0)")
+                            self.env.cr.execute("INSERT INTO dtm_diseno_almacen (id,nombre,medida,cantidad) VALUES ("+str(iterator)+",'"+str(get.nombre)+"','"+str(get.medida)+"', 0)")
                             self.env.cr.execute("UPDATE dtm_materials_line SET materials_list="+str(iterator)+" WHERE id="+str(get.id))
                             break
 
