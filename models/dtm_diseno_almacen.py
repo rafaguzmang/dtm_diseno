@@ -39,6 +39,7 @@ class Materiales(models.Model):
     def clean_table(self,myset):
         get_info = self.env['dtm.diseno.almacen'].search([])
         no_repeat = set(myset)
+        print(no_repeat)
         for get in get_info:
             print(get.nombre,get.medida)
             if get.nombre and get.medida:
@@ -91,7 +92,11 @@ class Materiales(models.Model):
             medida = str(perfiles.alto) + " x " + str(perfiles.ancho) + " @ " + str(perfiles.calibre) +", " + str(perfiles.largo)
             get_info = self.env['dtm.diseno.almacen'].search([("nombre","=",nombre),("medida","=",medida)])
             self.insertar(str(perfiles.cantidad),nombre,medida,get_info)
+<<<<<<< HEAD
+            myset.append(nombre+medida)
+=======
             myset.append(nombre + medida)
+>>>>>>> 6e7dce0855a04935887821dd8caeab3f07caea76
             id += 1
 
         for pintura in get_pintura:
