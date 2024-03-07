@@ -30,17 +30,20 @@ class Materiales(models.Model):
             else:
                 existe = False
             if existe:
+                # print("existe",nombre)
                 self.env.cr.execute("UPDATE dtm_diseno_almacen SET cantidad="+cantidad+" WHERE nombre='"+nombre+"' and medida='"+medida+"'")
             else:
-                print(nombre)
+#                 print("no existe",nombre)
                 self.env.cr.execute("INSERT INTO dtm_diseno_almacen ( cantidad, nombre, medida) VALUES ("+cantidad+", '"+nombre+"', '"+medida+"')")
 
     def clean_table(self,myset):
         get_info = self.env['dtm.diseno.almacen'].search([])
         no_repeat = set(myset)
         for get in get_info:
-            if get.nombre+get.medida not in no_repeat:
-                self.env.cr.execute("DELETE FROM dtm_diseno_almacen WHERE nombre='"+get.nombre+"' AND medida='"+get.medida+"'")
+            print(get.nombre,get.medida)
+            if get.nombre and get.medida:
+                if get.nombre+get.medida not in no_repeat:
+                    self.env.cr.execute("DELETE FROM dtm_diseno_almacen WHERE nombre='"+get.nombre+"' AND medida='"+get.medida+"'")
 
     def get_view(self, view_id=None, view_type='form', **options):
         res = super(Materiales,self).get_view(view_id, view_type,**options)
@@ -145,13 +148,23 @@ class Materiales(models.Model):
         get_odt = self.env['dtm.materials.line'].search([])
         for get in get_odt:
             get_this = self.env['dtm.diseno.almacen'].search([("nombre","=",get.nombre),("medida","=",get.medida)])
-
-            if not get_this:
+            # print(get_this.id)
+            if get_this:
+                # print(get_this.id,get_this.nombre,get_this.medida)
+                pass
+            else:
                 # print(get_this)
                 # print(get.nombre, get.medida)
-                if get.materials_list.id:
-                    # print("result 2",get.nombre + get.medida, get.id,get.materials_list)
-                    self.env.cr.execute("INSERT INTO dtm_diseno_almacen (id,nombre,medida,cantidad) VALUES ("+str(get.materials_list.id)+", '"+get.nombre+"','"+get.medida+"', 0)")
+                if get.materials_list:# Existe en dtm_materials_line pero no en dtm_diseno_almacen, lo agrega a dtm_diseno_almacen
+
+                    # print("result 2",get.nombre +" "+ get.medida, get.id,get.materials_list.id)
+                    get_act = self.env['dtm.diseno.almacen'].search([("id","=",get.materials_list.id)])
+                    if not get_act:
+                        print(get_act.id)
+                        self.env.cr.execute("INSERT INTO dtm_diseno_almacen (id,nombre,medida,cantidad) VALUES ("+str(get.materials_list.id)+", '"+str(get.nombre)+"','"+str(get.medida)+"', 0)")
+                    # self.env.cr.execute("UPDATE dtm_diseno_almacen SET nombre='"+get.nombre+"', medida='"+get.medida+"' WHERE id="+str(get.materials_list.id))
+                        act = self.env['dtm.diseno.almacen'].search([("id", "=", get.materials_list.id)])
+                        self.env.cr.execute("UPDATE dtm_materials_line SET  nombre='"+act.nombre+"', medida='"+act.medida+"' WHERE materials_list=" + str(get.materials_list.id))
                 else:
                     cont = self.env['dtm.diseno.almacen'].search_count([])
                     # print(cont)
