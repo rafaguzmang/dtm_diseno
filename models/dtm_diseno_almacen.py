@@ -33,10 +33,6 @@ class Materiales(models.Model):
                 # print("existe",nombre)
                 self.env.cr.execute("UPDATE dtm_diseno_almacen SET cantidad="+cantidad+" WHERE nombre='"+nombre+"' and medida='"+medida+"'")
             else:
-<<<<<<< HEAD
-=======
-#                 print("no existe",nombre)
->>>>>>> 473aba6ec2b864950b01809ceb2406614b6eb61e
                 self.env.cr.execute("INSERT INTO dtm_diseno_almacen ( cantidad, nombre, medida) VALUES ("+cantidad+", '"+nombre+"', '"+medida+"')")
 
     def clean_table(self,myset):
@@ -95,11 +91,8 @@ class Materiales(models.Model):
             medida = str(perfiles.alto) + " x " + str(perfiles.ancho) + " @ " + str(perfiles.calibre) +", " + str(perfiles.largo)
             get_info = self.env['dtm.diseno.almacen'].search([("nombre","=",nombre),("medida","=",medida)])
             self.insertar(str(perfiles.cantidad),nombre,medida,get_info)
-<<<<<<< HEAD
-            myset.append(nombre+medida)
-=======
+
             myset.append(nombre + medida)
->>>>>>> 473aba6ec2b864950b01809ceb2406614b6eb61e
             id += 1
 
         for pintura in get_pintura:
