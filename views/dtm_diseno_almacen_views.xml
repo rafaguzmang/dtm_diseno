@@ -9,7 +9,8 @@
                         <field name="id"></field>
                         <field name="nombre"></field>
                         <field name="medida"></field>
-                        <field name="cantidad" invisible = "0"></field>
+                        <field name="area"></field>
+                        <field name="cantidad" invisible = "1"></field>
                         <field name="caracteristicas"></field>
                     </tree>
                 </field>
@@ -34,13 +35,13 @@
                         <filter string="Existencia" name="diseno_pintura" domain="[('cantidad','>',0)]"/>
                         <separator/>
                         <filter string="Lámina" name="diseno_lamina" domain="[('nombre','like','Lámina')]"/>
-                        <filter string="Perfiles" name="diseno_perfiles" domain="[('nombre','like','Perfiles')]"/>
-                        <filter string="Tubos" name="diseno_tubos" domain="[('nombre','like','Tubos')]"/>
+                        <filter string="Perfiles" name="diseno_perfiles" domain="[('nombre','like','Perfil')]"/>
+                        <filter string="Tubos" name="diseno_tubos" domain="[('nombre','like','Tubo')]"/>
                         <filter string="Ángulos" name="diseno_angulos" domain="[('nombre','like','Ángulo')]"/>
                         <filter string="Solera" name="diseno_solera" domain="[('nombre','like','Solera')]"/>
                         <filter string="Varilla" name="diseno_varilla" domain="[('nombre','like','Varilla')]"/>
                         <filter string="Canal" name="diseno_canal" domain="[('nombre','like','Canal')]"/>
-                        <filter string="Tornillería" name="diseno_tornillería" domain="[('nombre','like','Tornillería')]"/>
+                        <filter string="Tornillería" name="diseno_tornillería" domain="[('nombre','like','Torni')]"/>
                         <filter string="Rodamientos" name="diseno_rodamientos" domain="[('nombre','like','Rodamientos')]"/>
                         <filter string="Pintura" name="diseno_pintura" domain="[('nombre','like','Pintura')]"/>
                         <separator/>
@@ -55,7 +56,7 @@
                         <separator/>
                         <filter string="Ácero al carbón" name="diseno_carbon" domain="[('nombre','like','carbón')]"/>
                         <filter string="Inoxidable" name="diseno_inox" domain="[('nombre','like','inoxidable')]"/>
-                        <filter string="Galvanizado" name="diseno_cal_11" domain="[('nombre','like','galvanizado')]"/>
+                        <filter string="Galvanizado" name="diseno_cal_11" domain="[('nombre','like','Galvanizado')]"/>
                         <filter string="Aluminio" name="diseno_cal_14" domain="[('nombre','like','aluminio')]"/>
                         <separator/>
                         <filter string="@ 1/4" name="diseno_cal_11" domain="[('medida','like','@ .25')]"/>
