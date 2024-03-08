@@ -9,8 +9,8 @@
                         <field name="id"></field>
                         <field name="nombre"></field>
                         <field name="medida"></field>
+                        <field name="cantidad" invisible = "0"></field>
                         <field name="caracteristicas"></field>
-                        <field name="cantidad" invisible = "1"></field>
                     </tree>
                 </field>
             </record>

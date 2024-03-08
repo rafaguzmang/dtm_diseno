@@ -88,15 +88,11 @@ class Materiales(models.Model):
             id += 1
 
         for perfiles in get_perfiles:
-            nombre = "Perfiles "+  perfiles.material_id.nombre
+            nombre = "Perfil "+  perfiles.material_id.nombre
             medida = str(perfiles.alto) + " x " + str(perfiles.ancho) + " @ " + str(perfiles.calibre) +", " + str(perfiles.largo)
             get_info = self.env['dtm.diseno.almacen'].search([("nombre","=",nombre),("medida","=",medida)])
             self.insertar(str(perfiles.cantidad),nombre,medida,get_info)
-<<<<<<< HEAD
-            myset.append(nombre+medida)
-=======
             myset.append(nombre + medida)
->>>>>>> 6e7dce0855a04935887821dd8caeab3f07caea76
             id += 1
 
         for pintura in get_pintura:
