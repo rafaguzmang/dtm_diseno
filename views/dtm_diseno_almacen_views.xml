@@ -5,7 +5,7 @@
                 <field name="name">dtm_diseno_almacen_tree</field>
                 <field name="model">dtm.diseno.almacen</field>
                 <field name="arch" type="xml">
-                    <tree create="True" editable="bottom">
+                    <tree create="True" editable="bottom" decoration-danger="cantidad==0">
                         <field name="id"></field>
                         <field name="nombre"></field>
                         <field name="medida"></field>
@@ -21,6 +21,57 @@
                 <field name="view_mode">tree</field>
     <!--            <field name="view_id" ref="dtm_diseno_realizados_tree" />-->
             </record>
+
+           <record id = "dtm_diseno_almace_search" model="ir.ui.view">
+               <field name="name">dtm.diseno.almacen.search</field>
+               <field name="model">dtm.diseno.almacen</field>
+               <field name ="arch" type="xml">
+                   <search>
+                        <field name="id"></field>
+                        <field name="nombre"></field>
+                        <field name="medida"></field>
+                        <field name="caracteristicas"></field>
+                        <filter string="Existencia" name="diseno_pintura" domain="[('cantidad','>',0)]"/>
+                        <separator/>
+                        <filter string="Lámina" name="diseno_lamina" domain="[('nombre','like','Lámina')]"/>
+                        <filter string="Perfiles" name="diseno_perfiles" domain="[('nombre','like','Perfiles')]"/>
+                        <filter string="Tubos" name="diseno_tubos" domain="[('nombre','like','Tubos')]"/>
+                        <filter string="Ángulos" name="diseno_angulos" domain="[('nombre','like','Ángulo')]"/>
+                        <filter string="Solera" name="diseno_solera" domain="[('nombre','like','Solera')]"/>
+                        <filter string="Varilla" name="diseno_varilla" domain="[('nombre','like','Varilla')]"/>
+                        <filter string="Canal" name="diseno_canal" domain="[('nombre','like','Canal')]"/>
+                        <filter string="Tornillería" name="diseno_tornillería" domain="[('nombre','like','Tornillería')]"/>
+                        <filter string="Rodamientos" name="diseno_rodamientos" domain="[('nombre','like','Rodamientos')]"/>
+                        <filter string="Pintura" name="diseno_pintura" domain="[('nombre','like','Pintura')]"/>
+                        <separator/>
+                        <filter string="@ 10" name="diseno_cal_11" domain="[('medida','like','@ 10')]"/>
+                        <filter string="@ 11" name="diseno_cal_11" domain="[('medida','like','@ 11')]"/>
+                        <filter string="@ 12" name="diseno_cal_11" domain="[('medida','like','@ 12')]"/>
+                        <filter string="@ 14" name="diseno_cal_14" domain="[('medida','like','@ 14')]"/>
+                        <filter string="@ 16" name="diseno_cal_16" domain="[('medida','like','@ 11')]"/>
+                        <filter string="@ 18" name="diseno_cal_18" domain="[('medida','like','@ 18')]"/>
+                        <filter string="@ 20" name="diseno_cal_18" domain="[('medida','like','@ 20')]"/>
+                        <filter string="@ 22" name="diseno_cal_22" domain="[('medida','like','@ 22')]"/>
+                        <separator/>
+                        <filter string="Ácero al carbón" name="diseno_carbon" domain="[('nombre','like','carbón')]"/>
+                        <filter string="Inoxidable" name="diseno_inox" domain="[('nombre','like','inoxidable')]"/>
+                        <filter string="Galvanizado" name="diseno_cal_11" domain="[('nombre','like','galvanizado')]"/>
+                        <filter string="Aluminio" name="diseno_cal_14" domain="[('nombre','like','aluminio')]"/>
+                        <separator/>
+                        <filter string="@ 1/4" name="diseno_cal_11" domain="[('medida','like','@ .25')]"/>
+                        <filter string="@ 1/8" name="diseno_cal_11" domain="[('medida','like','@ .125')]"/>
+                        <filter string="@ 3/8" name="diseno_cal_11" domain="[('medida','like','@ .375')]"/>
+                        <filter string="@ 1/2" name="diseno_cal_14" domain="[('medida','like','@ .5')]"/>
+                        <filter string="@ 5/8" name="diseno_cal_16" domain="[('medida','like','@ .625')]"/>
+                        <filter string="@ 3/4" name="diseno_cal_18" domain="[('medida','like','@ .75')]"/>
+
+                   </search>
+
+
+               </field>
+
+
+           </record>
 
 <!--            <record id="dtm_diseno_almacen_form" model="ir.ui.view">-->
 <!--                <field name="name">dtm_diseno_almacen_form</field>-->

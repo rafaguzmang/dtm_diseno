@@ -32,13 +32,12 @@ class Materiales(models.Model):
             if existe:
                 self.env.cr.execute("UPDATE dtm_diseno_almacen SET cantidad="+cantidad+" WHERE nombre='"+nombre+"' and medida='"+medida+"'")
             else:
-                print(nombre)
                 self.env.cr.execute("INSERT INTO dtm_diseno_almacen ( cantidad, nombre, medida) VALUES ("+cantidad+", '"+nombre+"', '"+medida+"')")
 
     def clean_table(self,myset):
         get_info = self.env['dtm.diseno.almacen'].search([])
         no_repeat = set(myset)
-        print(no_repeat)
+        # print(no_repeat)
         for get in get_info:
             if get.nombre+get.medida not in no_repeat:
                 self.env.cr.execute("DELETE FROM dtm_diseno_almacen WHERE nombre='"+get.nombre+"' AND medida='"+get.medida+"'")
@@ -55,9 +54,9 @@ class Materiales(models.Model):
         get_tornillos = self.env['dtm.materiales.tornillos'].search([])
         get_tubos = self.env['dtm.materiales.tubos'].search([])
         get_varilla = self.env['dtm.materiales.varilla'].search([])
-
         myset = []
         id = 1
+
         for lamina in get_lamina:
             # print(lamina.material_id.nombre + " " + str(lamina.largo) + " " + str(lamina.ancho) + " @ " + str(lamina.calibre))
             nombre = "Lámina " + lamina.material_id.nombre + " "
@@ -89,11 +88,7 @@ class Materiales(models.Model):
             medida = str(perfiles.alto) + " x " + str(perfiles.ancho) + " @ " + str(perfiles.calibre) +", " + str(perfiles.largo)
             get_info = self.env['dtm.diseno.almacen'].search([("nombre","=",nombre),("medida","=",medida)])
             self.insertar(str(perfiles.cantidad),nombre,medida,get_info)
-<<<<<<< HEAD
             myset.append(nombre+medida)
-=======
-            myset.append(nombre + medida)
->>>>>>> 6e7dce0855a04935887821dd8caeab3f07caea76
             id += 1
 
         for pintura in get_pintura:
