@@ -10,6 +10,7 @@ class Materiales(models.Model):
     nombre = fields.Char(string="Nombre", readonly=False,compute="_compute_id",store=True, require=True)
     medida = fields.Char(string="Medidas", readonly=False)
     caracteristicas = fields.Char(string="Caracteristicas", readonly=False)
+    area = fields.Float(string="Área/Largo")
     cantidad = fields.Integer()
 
     @api.depends("nombre")
@@ -24,23 +25,29 @@ class Materiales(models.Model):
             res.append((result.id,f'{result.id}-  {result.nombre} {result.medida}'))
         return res
 
-    def insertar(self,cantidad,nombre,medida,valor):
+    def insertar(self,cantidad,nombre,medida,valor,*args):
             if valor:
                 existe =True
             else:
                 existe = False
+            area = 0
+            if args:
+                area = args[0]
             if existe:
-                # print("existe",nombre)
-                self.env.cr.execute("UPDATE dtm_diseno_almacen SET cantidad="+cantidad+" WHERE nombre='"+nombre+"' and medida='"+medida+"'")
+                self.env.cr.execute("UPDATE dtm_diseno_almacen SET cantidad="+cantidad+", area="+str(area)+" WHERE nombre='"+nombre+"' and medida='"+medida+"'")
             else:
+<<<<<<< HEAD
                 self.env.cr.execute("INSERT INTO dtm_diseno_almacen ( cantidad, nombre, medida) VALUES ("+cantidad+", '"+nombre+"', '"+medida+"')")
+=======
+                self.env.cr.execute("INSERT INTO dtm_diseno_almacen ( cantidad, nombre, medida, area) VALUES ("+cantidad+", '"+nombre+"', '"+medida+"',"+str(area)+")")
+>>>>>>> 87615e6eefded3ddd1e616699deb4035f8f61c36
 
     def clean_table(self,myset):
         get_info = self.env['dtm.diseno.almacen'].search([])
         no_repeat = set(myset)
         # print(no_repeat)
         for get in get_info:
-            print(get.nombre,get.medida)
+            # print(get.nombre,get.medida)
             if get.nombre and get.medida:
                 if get.nombre+get.medida not in no_repeat:
                     self.env.cr.execute("DELETE FROM dtm_diseno_almacen WHERE nombre='"+get.nombre+"' AND medida='"+get.medida+"'")
@@ -66,15 +73,16 @@ class Materiales(models.Model):
             medida = str(lamina.largo) + " x " + str(lamina.ancho) + " @ " + str(lamina.calibre)
             get_info = self.env['dtm.diseno.almacen'].search([("nombre","=",nombre),("medida","=",medida)])
             myset.append(nombre+medida)
-            # print(get_info,nombre,lamina)
-            self.insertar(str(lamina.cantidad),nombre,medida,get_info)
+            print("Área",lamina.largo,lamina.ancho)
+            area = float(lamina.largo) * float(lamina.ancho)
+            self.insertar(str(lamina.cantidad),nombre,medida,get_info,area)
             id += 1
 
         for angulo in get_angulos:
             nombre =  "Ángulo "+ angulo.material_id.nombre
             medida = str(angulo.alto) + " x " + str(angulo.ancho) + " @ " + str(angulo.calibre) +", " + str(angulo.largo)
             get_info = self.env['dtm.diseno.almacen'].search([("nombre","=",nombre),("medida","=",medida)])
-            self.insertar(str(angulo.cantidad),nombre,medida,get_info)
+            self.insertar(str(angulo.cantidad),nombre,medida,get_info,angulo.largo)
             myset.append(nombre+medida)
             id += 1
 
@@ -82,7 +90,7 @@ class Materiales(models.Model):
             nombre = "Canal "+  canal.material_id.nombre
             medida = str(canal.alto) + " x " + str(canal.ancho) + " espesor " + str(canal.espesor) +", " + str(canal.largo)
             get_info = self.env['dtm.diseno.almacen'].search([("nombre","=",nombre),("medida","=",medida)])
-            self.insertar(str(canal.cantidad),nombre,medida,get_info)
+            self.insertar(str(canal.cantidad),nombre,medida,get_info,canal.largo)
             myset.append(nombre+medida)
             id += 1
 
@@ -90,8 +98,12 @@ class Materiales(models.Model):
             nombre = "Perfil "+  perfiles.material_id.nombre
             medida = str(perfiles.alto) + " x " + str(perfiles.ancho) + " @ " + str(perfiles.calibre) +", " + str(perfiles.largo)
             get_info = self.env['dtm.diseno.almacen'].search([("nombre","=",nombre),("medida","=",medida)])
+<<<<<<< HEAD
             self.insertar(str(perfiles.cantidad),nombre,medida,get_info)
 
+=======
+            self.insertar(str(perfiles.cantidad),nombre,medida,get_info,perfiles.largo)
+>>>>>>> 87615e6eefded3ddd1e616699deb4035f8f61c36
             myset.append(nombre + medida)
             id += 1
 
@@ -115,7 +127,7 @@ class Materiales(models.Model):
             nombre = "Solera "+  solera.material_id.nombre
             medida = str(solera.largo) + " x " + str(solera.ancho) + " @ " + str(solera.calibre)
             get_info = self.env['dtm.diseno.almacen'].search([("nombre","=",nombre),("medida","=",medida)])
-            self.insertar(str(solera.cantidad),nombre,medida,get_info)
+            self.insertar(str(solera.cantidad),nombre,medida,get_info,solera.largo)
             myset.append(nombre+medida)
             id += 1
 
@@ -131,7 +143,7 @@ class Materiales(models.Model):
             nombre = "Tubo "+  tubos.material_id.nombre
             medida = str(tubos.diametro) + " x " + str(tubos.largo) + " @ " + str(tubos.calibre)
             get_info = self.env['dtm.diseno.almacen'].search([("nombre","=",nombre),("medida","=",medida)])
-            self.insertar(str(tubos.cantidad),nombre,medida,get_info)
+            self.insertar(str(tubos.cantidad),nombre,medida,get_info,tubos.largo)
             myset.append(nombre+medida)
             id += 1
 
@@ -139,7 +151,7 @@ class Materiales(models.Model):
             nombre = "Varilla "+  varilla.material_id.nombre
             medida = str(varilla.diametro) + " x " + str(varilla.largo)
             get_info = self.env['dtm.diseno.almacen'].search([("nombre","=",nombre),("medida","=",medida)])
-            self.insertar(str(varilla.cantidad),nombre,medida,get_info)
+            self.insertar(str(varilla.cantidad),nombre,medida,get_info,varilla.largo)
             myset.append(nombre+medida)
             id += 1
         self.clean_table(myset)
@@ -161,7 +173,7 @@ class Materiales(models.Model):
                     # print("result 2",get.nombre +" "+ get.medida, get.id,get.materials_list.id)
                     get_act = self.env['dtm.diseno.almacen'].search([("id","=",get.materials_list.id)])
                     if not get_act:
-                        print(get_act.id)
+                        # print(get_act.id)
                         self.env.cr.execute("INSERT INTO dtm_diseno_almacen (id,nombre,medida,cantidad) VALUES ("+str(get.materials_list.id)+", '"+str(get.nombre)+"','"+str(get.medida)+"', 0)")
                     # self.env.cr.execute("UPDATE dtm_diseno_almacen SET nombre='"+get.nombre+"', medida='"+get.medida+"' WHERE id="+str(get.materials_list.id))
                         act = self.env['dtm.diseno.almacen'].search([("id", "=", get.materials_list.id)])
