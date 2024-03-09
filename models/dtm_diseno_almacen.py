@@ -36,11 +36,8 @@ class Materiales(models.Model):
             if existe:
                 self.env.cr.execute("UPDATE dtm_diseno_almacen SET cantidad="+cantidad+", area="+str(area)+" WHERE nombre='"+nombre+"' and medida='"+medida+"'")
             else:
-<<<<<<< HEAD
-                self.env.cr.execute("INSERT INTO dtm_diseno_almacen ( cantidad, nombre, medida) VALUES ("+cantidad+", '"+nombre+"', '"+medida+"')")
-=======
                 self.env.cr.execute("INSERT INTO dtm_diseno_almacen ( cantidad, nombre, medida, area) VALUES ("+cantidad+", '"+nombre+"', '"+medida+"',"+str(area)+")")
->>>>>>> 87615e6eefded3ddd1e616699deb4035f8f61c36
+
 
     def clean_table(self,myset):
         get_info = self.env['dtm.diseno.almacen'].search([])
@@ -98,12 +95,8 @@ class Materiales(models.Model):
             nombre = "Perfil "+  perfiles.material_id.nombre
             medida = str(perfiles.alto) + " x " + str(perfiles.ancho) + " @ " + str(perfiles.calibre) +", " + str(perfiles.largo)
             get_info = self.env['dtm.diseno.almacen'].search([("nombre","=",nombre),("medida","=",medida)])
-<<<<<<< HEAD
-            self.insertar(str(perfiles.cantidad),nombre,medida,get_info)
 
-=======
             self.insertar(str(perfiles.cantidad),nombre,medida,get_info,perfiles.largo)
->>>>>>> 87615e6eefded3ddd1e616699deb4035f8f61c36
             myset.append(nombre + medida)
             id += 1
 
