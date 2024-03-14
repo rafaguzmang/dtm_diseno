@@ -18,6 +18,8 @@
             </field>
         </record>
 
+
+
         <record id="dtm_diseno_materiales_accion" model="ir.actions.act_window">
             <field name="name">Materiales</field>
             <field name="res_model">dtm.diseno.materiales</field>
