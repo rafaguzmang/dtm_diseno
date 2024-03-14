@@ -30,11 +30,8 @@ class Materiales(models.Model):
             if existe:
                 self.env.cr.execute("UPDATE dtm_diseno_almacen SET cantidad="+cantidad+", area="+str(area)+" WHERE nombre='"+nombre+"' and medida='"+medida+"'")
             else:
-<<<<<<< HEAD
-                self.env.cr.execute("INSERT INTO dtm_diseno_almacen ( cantidad, nombre, medida) VALUES ("+cantidad+", '"+nombre+"', '"+medida+"')")
-=======
                 self.env.cr.execute("INSERT INTO dtm_diseno_almacen ( cantidad, nombre, medida, area) VALUES ("+cantidad+", '"+nombre+"', '"+medida+"',"+str(area)+")")
->>>>>>> 87615e6eefded3ddd1e616699deb4035f8f61c36
+
 
     def clean_table(self,myset):
         get_info = self.env['dtm.diseno.almacen'].search([])
@@ -74,7 +71,7 @@ class Materiales(models.Model):
 
         for angulo in get_angulos:
             nombre =  "Ángulo "+ angulo.material_id.nombre
-            medida = str(angulo.alto) + " x " + str(angulo.ancho) + " @ " + str(angulo.calibre) +", " + str(angulo.largo)
+            medida = str(angulo.alto) + " x " + str(angulo.ancho) + " @ " + str(angulo.calibre) +", " + str(angulo.largo)# Da formato al campo medida
             get_info = self.env['dtm.diseno.almacen'].search([("nombre","=",nombre),("medida","=",medida)])
             disponible = angulo.cantidad - angulo.apartado
             self.insertar(str(disponible),nombre,medida,get_info,angulo.largo)
@@ -94,17 +91,8 @@ class Materiales(models.Model):
             nombre = "Perfil "+  perfiles.material_id.nombre
             medida = str(perfiles.alto) + " x " + str(perfiles.ancho) + " @ " + str(perfiles.calibre) +", " + str(perfiles.largo)
             get_info = self.env['dtm.diseno.almacen'].search([("nombre","=",nombre),("medida","=",medida)])
-<<<<<<< HEAD
             disponible = perfiles.cantidad - perfiles.apartado
             self.insertar(str(disponible),nombre,medida,get_info,perfiles.largo)
-=======
-<<<<<<< HEAD
-            self.insertar(str(perfiles.cantidad),nombre,medida,get_info)
-
-=======
-            self.insertar(str(perfiles.cantidad),nombre,medida,get_info,perfiles.largo)
->>>>>>> 87615e6eefded3ddd1e616699deb4035f8f61c36
->>>>>>> 1c5de5753199ab08f1f423ff34099fd312c8421a
             myset.append(nombre + medida)
             id += 1
 
@@ -118,7 +106,7 @@ class Materiales(models.Model):
             id += 1
 
         for rodamientos in get_rodamientos:
-            nombre = rodamientos.material_id.nombre
+            nombre = "Rodamientos "+rodamientos.material_id.nombre
             medida = str(rodamientos.descripcion)
             get_info = self.env['dtm.diseno.almacen'].search([("nombre","=",nombre),("medida","=",medida)])
             disponible = rodamientos.cantidad - rodamientos.apartado
@@ -136,7 +124,7 @@ class Materiales(models.Model):
             id += 1
 
         for tornillos in get_tornillos:
-            nombre = tornillos.material_id.nombre
+            nombre = "Tornillo "+tornillos.material_id.nombre
             medida = str(tornillos.diametro) + " x " + str(tornillos.largo)
             get_info = self.env['dtm.diseno.almacen'].search([("nombre","=",nombre),("medida","=",medida)])
             disponible = tornillos.cantidad - tornillos.apartado

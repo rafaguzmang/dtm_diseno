@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+       <data>
+             <record id="dtm_diseno_corte_tree" model="ir.ui.view">
+                <field name="name">dtm_diseno_corte_tree</field>
+                <field name="model">dtm.diseno.corte</field>
+                <field name="arch" type="xml">
+                    <tree >
+                        <field name="no_orden"></field>
+                        <field name="date"></field>
+                    </tree>
+                </field>
+            </record>
+
+            <record id="dtm_diseno_corte_view_form" model="ir.ui.view">
+            <field name="name">dtm_diseno_corte.view.form</field>
+            <field name="model">dtm.diseno.corte</field>
+                <field name="arch" type="xml">
+                    <form>
+                        <sheet>
+                            <field name="no_orden"></field>
+                            <field name="date"></field>
+                                <notebook>
+                                    <page>
+                                        <field name="odt_id"></field>
+                                    </page>
+                                    <page>
+                                        <field name="notas"></field>
+                                    </page>
+                                </notebook>
+
+                        </sheet>
+                    </form>
+                </field>
+            </record>
+
+
+
+            <record id="dtm_diseno_corte_action" model="ir.actions.act_window">
+                <field name="name">Corte</field>
+                <field name="res_model">dtm.diseno.corte</field>
+                <field name="view_mode">tree,form</field>
+            </record>
+
+        <menuitem id="dtm_diseno_corte_menu" action="dtm_diseno.dtm_diseno_corte_action"/>
+
+       </data>
+
+
+</odoo>

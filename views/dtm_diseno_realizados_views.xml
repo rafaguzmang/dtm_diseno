@@ -14,8 +14,12 @@
             </field>
         </record>
 
+
+
+
+
         <record id="dtm_diseno_realizados_accion" model="ir.actions.act_window">
-            <field name="name">Realizados</field>
+            <field name="name">Cortadora</field>
             <field name="res_model">dtm.diseno.realizados</field>
             <field name="view_mode">tree</field>
 <!--            <field name="view_id" ref="dtm_diseno_realizados_tree" />-->
