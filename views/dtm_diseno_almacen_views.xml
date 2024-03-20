@@ -12,6 +12,7 @@
                         <field name="area"></field>
                         <field name="cantidad" invisible = "1"></field>
                         <field name="caracteristicas"></field>
+                        <field name="notas" />
                     </tree>
                 </field>
             </record>
@@ -58,10 +59,6 @@
                         <filter string="Inoxidable" name="diseno_inox" domain="[('nombre','ilike','inoxidable')]"/>
                         <filter string="Galvanizado" name="diseno_cal_11" domain="[('nombre','ilike','galvanizado')]"/>
                         <filter string="Aluminio" name="diseno_cal_14" domain="[('nombre','ilike','aluminio')]"/>
-<<<<<<< HEAD
-=======
-
->>>>>>> 3ed0de93503770633063334ec968cbbb2a778b45
                         <separator/>
                         <filter string="@ 1/4" name="diseno_cal_11" domain="[('medida','like','@ .25')]"/>
                         <filter string="@ 1/8" name="diseno_cal_11" domain="[('medida','like','@ .125')]"/>
