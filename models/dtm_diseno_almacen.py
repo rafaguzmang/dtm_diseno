@@ -91,33 +91,8 @@ class Materiales(models.Model):
             nombre = "Perfil "+  perfiles.material_id.nombre
             medida = str(perfiles.alto) + " x " + str(perfiles.ancho) + " @ " + str(perfiles.calibre) +", " + str(perfiles.largo)
             get_info = self.env['dtm.diseno.almacen'].search([("nombre","=",nombre),("medida","=",medida)])
-<<<<<<< HEAD
-
             disponible = perfiles.cantidad - perfiles.apartado
             self.insertar(str(disponible),nombre,medida,get_info,perfiles.largo)
-=======
-<<<<<<< HEAD
-            disponible = perfiles.cantidad - perfiles.apartado
-            self.insertar(str(disponible),nombre,medida,get_info,perfiles.largo)
-=======
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-            disponible = perfiles.cantidad - perfiles.apartado
-            self.insertar(str(disponible),nombre,medida,get_info,perfiles.largo)
-=======
-<<<<<<< HEAD
-            self.insertar(str(perfiles.cantidad),nombre,medida,get_info)
->>>>>>> 594cadf2c60b5b6ddcc06261eb9d8bfe5617b9ee
-
-            self.insertar(str(perfiles.cantidad),nombre,medida,get_info,perfiles.largo)
-<<<<<<< HEAD
-=======
->>>>>>> 87615e6eefded3ddd1e616699deb4035f8f61c36
->>>>>>> 1c5de5753199ab08f1f423ff34099fd312c8421a
->>>>>>> 594cadf2c60b5b6ddcc06261eb9d8bfe5617b9ee
->>>>>>> 3ed0de93503770633063334ec968cbbb2a778b45
->>>>>>> d128d188f8f3b601b49929b44f2205070e21ff3d
             myset.append(nombre + medida)
             id += 1
 
