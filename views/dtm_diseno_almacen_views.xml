@@ -12,6 +12,7 @@
                         <field name="area"></field>
                         <field name="cantidad" invisible = "1"></field>
                         <field name="caracteristicas"></field>
+                        <field name="notas" />
                     </tree>
                 </field>
             </record>
