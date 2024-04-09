@@ -72,7 +72,6 @@ class Materiales(models.Model):
         #     self.insertar(str(disponible),nombre,medida,get_info,area,descripcion)
         #     id += 1
 
-<<<<<<< HEAD
         # for angulo in get_angulos:
         #     nombre =  "Ángulo "+ angulo.material_id.nombre
         #     medida = str(angulo.alto) + " x " + str(angulo.ancho) + " @ " + str(angulo.calibre) +", " + str(angulo.largo)# Da formato al campo medida
@@ -162,89 +161,7 @@ class Materiales(models.Model):
         #     myset.append(nombre+medida)
         #     id += 1
         # self.clean_table(myset)
-=======
-        for angulo in get_angulos:
-            nombre =  "Ángulo "+ angulo.material_id.nombre
-            medida = str(angulo.alto) + " x " + str(angulo.ancho) + " @ " + str(angulo.calibre) +", " + str(angulo.largo)# Da formato al campo medida
-            get_info = self.env['dtm.diseno.almacen'].search([("nombre","=",nombre),("medida","=",medida)])
-            disponible = angulo.cantidad - angulo.apartado
-            self.insertar(str(disponible),nombre,medida,get_info,angulo.largo)
-            myset.append(nombre+medida)
-            id += 1
 
-        for canal in get_canal:
-            nombre = "Canal "+  canal.material_id.nombre
-            medida = str(canal.alto) + " x " + str(canal.ancho) + " espesor " + str(canal.espesor) +", " + str(canal.largo)
-            get_info = self.env['dtm.diseno.almacen'].search([("nombre","=",nombre),("medida","=",medida)])
-            disponible = canal.cantidad - canal.apartado
-            self.insertar(str(disponible),nombre,medida,get_info,canal.largo)
-            myset.append(nombre+medida)
-            id += 1
-
-        for perfiles in get_perfiles:
-            nombre = "Perfil "+  perfiles.material_id.nombre
-            medida = str(perfiles.alto) + " x " + str(perfiles.ancho) + " @ " + str(perfiles.calibre) +", " + str(perfiles.largo)
-            get_info = self.env['dtm.diseno.almacen'].search([("nombre","=",nombre),("medida","=",medida)])
-            disponible = perfiles.cantidad - perfiles.apartado
-            self.insertar(str(disponible),nombre,medida,get_info,perfiles.largo)
-            myset.append(nombre + medida)
-            id += 1
-
-        for pintura in get_pintura:
-            nombre = "Pintura "+  pintura.material_id.nombre
-            medida = str(pintura.cantidades)
-            get_info = self.env['dtm.diseno.almacen'].search([("nombre","=",nombre),("medida","=",medida)])
-            disponible = pintura.cantidad - pintura.apartado
-            self.insertar(str(disponible),nombre,medida,get_info)
-            myset.append(nombre+medida)
-            id += 1
-
-        for rodamientos in get_rodamientos:
-            nombre = "Rodamientos "+rodamientos.material_id.nombre
-            medida = str(rodamientos.descripcion)
-            get_info = self.env['dtm.diseno.almacen'].search([("nombre","=",nombre),("medida","=",medida)])
-            disponible = rodamientos.cantidad - rodamientos.apartado
-            self.insertar(str(disponible),nombre,medida,get_info)
-            myset.append(nombre+medida)
-            id += 1
-
-        for solera in get_solera:
-            nombre = "Solera "+  solera.material_id.nombre
-            medida = str(solera.largo) + " x " + str(solera.ancho) + " @ " + str(solera.calibre)
-            get_info = self.env['dtm.diseno.almacen'].search([("nombre","=",nombre),("medida","=",medida)])
-            disponible = solera.cantidad - solera.apartado
-            self.insertar(str(disponible),nombre,medida,get_info,solera.largo)
-            myset.append(nombre+medida)
-            id += 1
-
-        for tornillos in get_tornillos:
-            nombre = "Tornillo "+tornillos.material_id.nombre
-            medida = str(tornillos.diametro) + " x " + str(tornillos.largo)
-            get_info = self.env['dtm.diseno.almacen'].search([("nombre","=",nombre),("medida","=",medida)])
-            disponible = tornillos.cantidad - tornillos.apartado
-            self.insertar(str(disponible),nombre,medida,get_info)
-            myset.append(nombre+medida)
-            id += 1
-
-        for tubos in get_tubos:
-            nombre = "Tubo "+  tubos.material_id.nombre
-            medida = str(tubos.diametro) + " x " + str(tubos.largo) + " @ " + str(tubos.calibre)
-            get_info = self.env['dtm.diseno.almacen'].search([("nombre","=",nombre),("medida","=",medida)])
-            disponible = tubos.cantidad - tubos.apartado
-            self.insertar(str(disponible),nombre,medida,get_info,tubos.largo)
-            myset.append(nombre+medida)
-            id += 1
-
-        for varilla in get_varilla:
-            nombre = "Varilla "+  varilla.material_id.nombre
-            medida = str(varilla.diametro) + " x " + str(varilla.largo)
-            get_info = self.env['dtm.diseno.almacen'].search([("nombre","=",nombre),("medida","=",medida)])
-            disponible = varilla.cantidad - varilla.apartado
-            self.insertar(str(disponible),nombre,medida,get_info,varilla.largo)
-            myset.append(nombre+medida)
-            id += 1
-        self.clean_table(myset)
->>>>>>> 7ee00e412c0458b6c1e6bdcc70a5e5422261ff38
 
         # Carga los materiales del modelo dtm.materials.line que son nuevos (no están en el almacén)
 
