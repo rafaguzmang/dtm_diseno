@@ -10,7 +10,7 @@
                         <field name="nombre"></field>
                         <field name="medida"></field>
                         <field name="area"></field>
-                        <field name="cantidad" invisible = "1"></field>
+                        <field name="cantidad" ></field>
                         <field name="caracteristicas"></field>
                         <field name="notas" />
                     </tree>
