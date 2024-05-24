@@ -61,13 +61,13 @@
                         <filter string="Aluminio" name="diseno_alumino" domain="[('nombre','ilike','aluminio')]"/>
                         <separator/>
                         <filter string="@ 1/8" name="diseno_cal_1_8" domain="[('medida','like','@ 0.125')]"/>
-                        <filter string="@ 3/16" name="diseno_cal_3_16" domain="[('medida','like','@ 0.3125')]"/>
+                        <filter string="@ 3/16" name="diseno_cal_3_16" domain="[('medida','like','@ 0.1875')]"/>
                         <filter string="@ 1/4" name="diseno_cal_1_4" domain="[('medida','like','@ 0.25')]"/>
                         <filter string="@ 3/8" name="diseno_cal_3_8" domain="[('medida','like','@ 0.375')]"/>
                         <filter string="@ 1/2" name="diseno_cal_1_2" domain="[('medida','like','@ 0.5')]"/>
                         <filter string="@ 5/8" name="diseno_cal_5_8" domain="[('medida','like','@ 0.625')]"/>
                         <filter string="@ 3/4" name="diseno_cal_3_4" domain="[('medida','like','@ 0.75')]"/>
-                        <filter string="@ 7/8" name="diseno_cal_7_" domain="[('medida','like','@ 0.875')]"/>
+                        <filter string="@ 7/8" name="diseno_cal_7_8" domain="[('medida','like','@ 0.875')]"/>
 
                    </search>
 
