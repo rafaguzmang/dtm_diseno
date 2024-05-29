@@ -77,21 +77,21 @@
 
            </record>
 
-<!--            <record id="dtm_diseno_almacen_form" model="ir.ui.view">-->
-<!--                <field name="name">dtm_diseno_almacen_form</field>-->
-<!--                <field name="model">dtm.diseno.almacen</field>-->
-<!--                <field name="arch" type="xml">-->
-<!--                        <form string="">-->
-<!--                            <sheet>-->
-<!--                                <group>-->
-<!--                                    <field name="nombre"></field>-->
-<!--                                    <field name="medida"></field>-->
-<!--                                    <field name="caracteristicas"></field>-->
-<!--                                </group>-->
-<!--                            </sheet>-->
-<!--                        </form>-->
-<!--                </field>-->
-<!--            </record>-->
+            <record id="dtm_diseno_almacen_form" model="ir.ui.view">
+                <field name="name">dtm_diseno_almacen_form</field>
+                <field name="model">dtm.diseno.almacen</field>
+                <field name="arch" type="xml">
+                        <form string="">
+                            <sheet>
+                                <group>
+                                    <field name="nombre"></field>
+                                    <field name="medida"></field>
+                                    <field name="caracteristicas"></field>
+                                </group>
+                            </sheet>
+                        </form>
+                </field>
+            </record>
 
 <!--        <menuitem id="dtm_diseno_almacen_menu" action="dtm_diseno_almacen_accion" />-->
        </data>

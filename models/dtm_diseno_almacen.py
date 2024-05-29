@@ -2,8 +2,6 @@ from odoo import api,fields,models
 from odoo.exceptions import ValidationError
 import re
 
-
-
 class Materiales(models.Model):
     _name = "dtm.diseno.almacen"
     _description = "Modelo donde se concentrán todos los materiales disponibles en almacén"
@@ -56,7 +54,6 @@ class Materiales(models.Model):
         return res
 
 
-
     def get_view(self, view_id=None, view_type='form', **options):#Carga los items de todos los módulos de Almacén en un solo módulo de diseño
         res = super(Materiales,self).get_view(view_id, view_type,**options)
         return res
@@ -79,10 +76,6 @@ class Materiales(models.Model):
                 raise ValidationError("Material Duplicado")
             else:
                 mapa[cadena] = 1
-        return res
-
-
-
         return res
 
 
