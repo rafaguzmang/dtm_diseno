@@ -15,7 +15,7 @@ class Materiales(models.Model):
     area = fields.Float(string="Área/Largo")
     cantidad = fields.Integer()
 
-    @api.onchange("nombre")
+    # @api.onchange("nombre")
     # def _action_nombre(self):
     #     if self.nombre:
     #         txt = self.nombre
@@ -65,14 +65,14 @@ class Materiales(models.Model):
         get_info = self.env['dtm.diseno.almacen'].search([])
 
         mapa ={}
-        for get in get_info:
-            nombre = get.nombre
-            medida = get.medida
+        for info in get_info:
+            nombre = info.nombre
+            medida = info.medida
 
             cadena = nombre,medida
 
             if mapa.get(cadena):
-                get.unlink()
+                info.unlink()
                 raise ValidationError("Material Duplicado")
             else:
                 mapa[cadena] = 1
