@@ -10,7 +10,7 @@ class Materiales(models.Model):
     # numero = fields.Integer(string="Número")
     nombre = fields.Char(string="Nombre", readonly=False,store=True, require=True)
     medida = fields.Char(string="Medidas", readonly=False)
-    caracteristicas = fields.Char(string="Caracteristicas", readonly=True)
+    caracteristicas = fields.Char(string="Caracteristicas")
     notas = fields.Text(string="Notas")
     area = fields.Float(string="Área/Largo")
     cantidad = fields.Integer()
