@@ -15,37 +15,7 @@ class Materiales(models.Model):
     area = fields.Float(string="Área/Largo")
     cantidad = fields.Integer()
 
-    # @api.onchange("nombre")
-    # def _action_nombre(self):
-    #     if self.nombre:
-    #         txt = self.nombre
-    #         txt = re.sub(".*[lL][aAáÁ][mM][iI][nN][aA][sS].*", "Lámina", txt)
-    #         txt = re.sub(".*[cC][aA][rR][bB][oOóÓ][nN].*", "Lámina Acero al carbón", txt)
-    #         txt = re.sub(".*[nN][eE][gG][rR][aA].*", "Lámina Acero al carbón", txt)
-    #         self.nombre = txt
-    #
-    #
-    # @api.onchange("medida")
-    # def _action_medida(self):
-    #     if self.medida:
-    #         txt = self.medida
-    #         ntxt = ""
-    #         for num in txt:
-    #             if not num.isdecimal():
-    #                 num = " " + num + " "
-    #             ntxt = ntxt + num
-    #         ntxt = re.sub("^\s+","", ntxt)
-    #         ntxt = re.sub("\s+$","", ntxt)
-    #         ntxt = re.sub("\s+"," ", ntxt)
-    #
-    #         ntxtList = ntxt.split(" ")
-    #         ftxt = ""
-    #         for num in ntxtList:
-    #             if re.match("\d",num):
-    #                 num = str(float(num))
-    #             ftxt = ftxt +" " + num
-    #         ftxt = re.sub("\s+$","", ftxt)
-    #         self.medida = ftxt
+
 
     def name_get(self):#--------------------------------Arreglo para cuando usa este modulo como Many2one--------------------
         res = []
@@ -61,16 +31,12 @@ class Materiales(models.Model):
     @api.model
     def create(self,vals):
         res = super(Materiales, self).create(vals)
-
         get_info = self.env['dtm.diseno.almacen'].search([])
-
         mapa ={}
         for info in get_info:
             nombre = info.nombre
             medida = info.medida
-
             cadena = nombre,medida
-
             if mapa.get(cadena):
                 info.unlink()
                 raise ValidationError("Material Duplicado")
