@@ -93,7 +93,7 @@
                 </field>
             </record>
 
-<!--        <menuitem id="dtm_diseno_almacen_menu" action="dtm_diseno_almacen_accion" />-->
+        <menuitem id="dtm_diseno_almacen_menu" action="dtm_diseno_almacen_accion" />
        </data>
 
 
