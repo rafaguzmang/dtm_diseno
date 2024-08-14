@@ -5,7 +5,7 @@
                 <field name="name">dtm_diseno_almacen_tree</field>
                 <field name="model">dtm.diseno.almacen</field>
                 <field name="arch" type="xml">
-                    <tree create="True" editable="bottom" decoration-danger="cantidad==0">
+                    <tree create="True" editable="bottom" decoration-danger="cantidad==0" decoration-warning="no_almacen==True">
                         <field name="id"></field>
                         <field name="nombre"></field>
                         <field name="medida"></field>
@@ -13,6 +13,7 @@
                         <field name="cantidad" ></field>
                         <field name="caracteristicas"></field>
                         <field name="notas" />
+                        <field name="no_almacen" invisible="1"/>
                     </tree>
                 </field>
             </record>

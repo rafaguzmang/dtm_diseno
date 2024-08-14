@@ -14,6 +14,7 @@ class Materiales(models.Model):
     notas = fields.Text(string="Notas")
     area = fields.Float(string="Área/Largo")
     cantidad = fields.Integer()
+    no_almacen = fields.Boolean()
 
 
 
