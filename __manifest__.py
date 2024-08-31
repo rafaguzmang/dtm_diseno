@@ -9,7 +9,7 @@
         'views/dtm_diseno_almacen_views.xml',
         # 'views/dtm_diseno_corte_views.xml',
         #Menú
-        # 'views/menu_item.xml'
+        'views/menu_item.xml'
 
     ],
     "depends" : ["base"],
