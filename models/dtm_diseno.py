@@ -6,7 +6,7 @@ class DisenoMateriales(models.Model):
 
     drawingname  = fields.Char(string="DRAWINGNAME")
     sheets = fields.Char(string="SHEETS")
-    # material_id = fields.Many2one('dtm.materiales')
+    material_id = fields.Many2one('dtm.materiales')
     @api.onchange("sheets")
     def _onchange_apartado(self):
         if self.material_id.id:

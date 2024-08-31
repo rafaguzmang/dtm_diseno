@@ -1,6 +1,8 @@
 id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
 access_dtm_diseno_almacen,access.dtm.diseno.almacen,model_dtm_diseno_almacen,base.group_user,1,1,1,1
 
+access_odt_diseno_tipomaterial,access.odt.diseno.tipomaterial,model_odt_diseno_tipomaterial,base.group_user,1,1,1,1
+
 
 
 

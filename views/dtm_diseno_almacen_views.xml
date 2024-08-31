@@ -5,15 +5,16 @@
                 <field name="name">dtm_diseno_almacen_tree</field>
                 <field name="model">dtm.diseno.almacen</field>
                 <field name="arch" type="xml">
-                    <tree create="True" editable="bottom" decoration-danger="cantidad==0" decoration-warning="no_almacen==True">
+                    <tree>
                         <field name="id"></field>
                         <field name="nombre"></field>
                         <field name="medida"></field>
                         <field name="area"></field>
-                        <field name="cantidad" ></field>
+                        <field name="cantidad"></field>
+                        <field name="apartado"></field>
+                        <field name="disponible"></field>
                         <field name="caracteristicas"></field>
-                        <field name="notas" />
-                        <field name="no_almacen" invisible="1"/>
+                        <field name="notas"/>
                     </tree>
                 </field>
             </record>
@@ -21,8 +22,9 @@
             <record id="dtm_diseno_almacen_accion" model="ir.actions.act_window">
                 <field name="name">Almacén de Diseño</field>
                 <field name="res_model">dtm.diseno.almacen</field>
-                <field name="view_mode">tree</field>
-    <!--            <field name="view_id" ref="dtm_diseno_realizados_tree" />-->
+                <field name="view_mode">tree,form</field>
+                <field name="view_id" ref="dtm_diseno_almacen_tree"/>
+                <field name="context"></field>
             </record>
 
            <record id = "dtm_diseno_almace_search" model="ir.ui.view">
@@ -74,8 +76,6 @@
 
 
                </field>
-
-
            </record>
 
             <record id="dtm_diseno_almacen_form" model="ir.ui.view">
