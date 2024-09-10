@@ -37,10 +37,9 @@ class Materiales(models.Model):
 
     material_id = fields.Many2one("odt.diseno.tipomaterial",string="Material")
     material_tipo = fields.Many2one("odt.diseno.tipo",string="Tipo")
-    perfileria = fields.Selection(string="Perfilería",selection=[("cuadrado","Cuadrado"),("redondo","Redondo"),
-                                                          ("rectangular","Rectangular"),("angulo","Ángulos"),
-                                                          ("ipr","IPR"),("canales","Canales"),
-                                                          ("varilla","Varilla"),("viga","Viga")])
+    perfileria = fields.Selection(string="Perfilería",selection=[("angulo","Ángulos"),("canales","Canales"),("cuadrado","Cuadrado"),
+                                                                 ("ipr","IPR"),("perfil","Perfil"),("rectangular","Rectangular"),
+                                                                 ("redondo","Redondo"),("varilla","Varilla"),("viga","Viga")])
 
     pintura_tipo = fields.Selection(string="Tipo", selection=[("liquida","Líquida"),("polvo","Polvo"),("aerosol","Aerosol")])
     nombre_pintura = fields.Many2one("odt.diseno.pintura",string="Nombre")
@@ -55,7 +54,7 @@ class Materiales(models.Model):
         for result in self:
             result.disponible = result.cantidad - result.apartado
 
-    @api.onchange("campo_nombre","material_id","calibre_id","largo","ancho","perfileria","pintura_tipo","nombre_pintura","material_tipo")
+    @api.onchange("campo_nombre","material_id","calibre_id","alto","largo","ancho","perfileria","pintura_tipo","nombre_pintura","material_tipo")
     def _onchange_especificaciones(self):
         selection_dict = dict(self._fields['campo_nombre'].selection)
         valor_nombre = selection_dict.get(self.campo_nombre)
@@ -68,17 +67,21 @@ class Materiales(models.Model):
         cantidad = "Litros" if self.pintura_tipo =="liquida" else "Kilos" if self.pintura_tipo == "polvo" else "Latas"
 
         campo_nombre = valor_perfileria if self.campo_nombre == "perfileria" else valor_nombre
-        nombre = f"{campo_nombre if campo_nombre else ''} {self.material_id.nombre if self.material_id else ''} {self.material_tipo.nombre if self.material_tipo else ''} " if campo_nombre != "Pintura" else f"{campo_nombre} {self.nombre_pintura.nombre if self.nombre_pintura else ''} "
-        medida = f"{self.largo if self.largo else ''} x {self.ancho if self.ancho else ''} @ {self.calibre_id if self.calibre_id else ''}" if campo_nombre != "Pintura" else f"{valor_pintura} en {cantidad}"
+        if valor_perfileria:
+            lista = self.perfileria_nombre(valor_perfileria,self.material_id.nombre,self.calibre_id,self.alto,self.ancho,self.largo)
+            nombre = lista[0]
+            medida = lista[1]
+        else:
+            nombre = f"{campo_nombre if campo_nombre else ''} {self.material_id.nombre if self.material_id else ''} {self.material_tipo.nombre if self.material_tipo else ''} " if campo_nombre != "Pintura" else f"{campo_nombre} {self.nombre_pintura.nombre if self.nombre_pintura else ''} "
+            medida = f"{self.largo if self.largo else ''} x {self.ancho if self.ancho else ''} @ {self.calibre_id if self.calibre_id else ''}" if campo_nombre != "Pintura" else f"{valor_pintura} en {cantidad}"
         self.nombre = nombre
-        self.medida = medida if medida else ''
+        self.medida = medida
 
     def name_get(self):#--------------------------------Arreglo para cuando usa este modulo como Many2one--------------------
         res = []
         for result in self:
             res.append((result.id,f'{result.id}-  {result.nombre} {result.medida}'))
         return res
-
 
     def get_view(self, view_id=None, view_type='form', **options):#Carga los items de todos los módulos de Almacén en un solo módulo de diseño
         res = super(Materiales,self).get_view(view_id, view_type,**options)
@@ -104,6 +107,12 @@ class Materiales(models.Model):
                     self.env.cr.execute(f"SELECT setval('dtm_diseno_almacen_id_seq', {find_id}, false);")
                     break
         return res
+
+    def perfileria_nombre(self,item="",material="",calibre="",alto="",ancho="",largo=""):
+        if item == "Perfil":
+            return [f"{item} {material}",f"{alto} x {ancho} @ {calibre}, {largo}"]
+        return ["",""]
+
 
 
 class MaterialTipo(models.Model):
