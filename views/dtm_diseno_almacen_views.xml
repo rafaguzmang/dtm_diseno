@@ -92,52 +92,59 @@
                                     </div>
                                     <div style="display: flex;flex-direction: column;">
                                         <div style="display: flex;flex-direction: row;justify-content: space-between;text-align: center;border: 1px solid;padding: 3px 0px 3px 0;margin-bottom: 26px;">
-                                            <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('campo_nombre', '==', 'perfileria')]}">
+                                            <div style="display: flex;flex-direction: column;" >
                                                 <p>Item</p>
                                                 <field name="campo_nombre"/>
                                             </div>
-                                            <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('campo_nombre', '!=', 'perfileria')]}">
-                                                <p>Perfilería</p>
-                                                <field name="perfileria"/>
-                                            </div>
-                                            <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('campo_nombre', '!=', 'pintura')]}">
-                                                <p>Color</p>
-                                                <field name="nombre_pintura"/>
-                                            </div>
-                                            <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('campo_nombre', '!=', 'pintura')]}">
-                                                <p>Cantidad</p>
-                                                <field name="pintura_tipo"/>
-                                            </div>
-                                            <div style="display: flex;flex-direction: column;" attrs="{'invisible': ['|',('campo_nombre', '=', 'pintura'),('campo_nombre', '=', 'ruedas')]}">
+                        <!--Nombre-->
+                                            <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('campo_nombre', '!=', 'lamina')]}" >
                                                 <p>Material</p>
-                                                <field name="material_id"/>
+                                                <field name="material"/>
                                             </div>
-                                            <div style="display: flex;flex-direction: column;" attrs="{'invisible': ['|', '|', ('campo_nombre', '=', 'perfileria'), ('campo_nombre', '=', 'pintura'), ('campo_nombre', '=', 'ruedas')]}">
+                                            <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('material', '!=', 'carbon')]}">
                                                 <p>Tipo</p>
-                                                <field name="material_tipo"/>
+                                                <field name="tipo_carbon"/>
                                             </div>
-                                            <div style="display: flex;flex-direction: column;" attrs="{'invisible': ['|',('campo_nombre', '=', 'pintura'),('campo_nombre', '=', 'ruedas')]}">
+                                             <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('material', '!=', 'aluminio')]}">
+                                                <p>Tipo</p>
+                                                <field name="tipo_aluminio"/>
+                                            </div>
+                                            <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('material', '!=', 'inoxidable')]}">
+                                                <p>Tipo</p>
+                                                <field name="tipo_inoxidable"/>
+                                            </div>
+                                            <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('material', '!=', 'carbon')]}">
+                                                <p>Acabado</p>
+                                                <field name="acabado_carbon"/>
+                                            </div>
+                                            <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('material', '!=', 'inoxidable')]}">
+                                                <p>Acabado</p>
+                                                <field name="acabado_inoxidable"/>
+                                            </div>
+                                            <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('material', '!=', 'aluminio')]}">
+                                                <p>Acabado</p>
+                                                <field name="acabado_aluminio"/>
+                                            </div>
+
+                            <!--Medida-->
+                                             <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('campo_nombre', '!=', 'lamina')]}" >
                                                 <p>Calibre</p>
-                                                <field name="calibre_id"/>
+                                                <field name="calibre"/>
                                             </div>
-                                            <div style="display: flex;flex-direction: column;" attrs="{'invisible': ['|',('campo_nombre', '=', 'pintura'),('campo_nombre', '=', 'ruedas')]}">
+                                            <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('campo_nombre', '!=', 'lamina')]}" >
                                                 <p>Largo</p>
                                                 <field name="largo"/>
                                             </div>
-                                            <div style="display: flex;flex-direction: column;" attrs="{'invisible': ['|',('campo_nombre', '=', 'pintura'),('campo_nombre', '=', 'ruedas')]}">
+                                            <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('campo_nombre', '!=', 'lamina')]}" >
                                                 <p>Ancho</p>
                                                 <field name="ancho"/>
                                             </div>
-                                             <div style="display: flex;flex-direction: column;" attrs="{'invisible': ['|','|',('campo_nombre', '!=', 'perfileria'),('campo_nombre', '=', 'pintura'),('campo_nombre', '=', 'ruedas')]}">
-                                                <p>Alto</p>
-                                                <field name="alto"/>
-                                            </div>
                                         </div>
                                     </div>
-                                    <div style="display:flex;flex-direction:row">
-                                        <h4>
-                                            <field name="nombre"/>
-                                            <field name="medida"/>
+                                    <div>
+                                        <h4 style="display:flex;justify-content: space-between;flex-direction: row">
+                                            <field name="nombre" style="width:50%"/>
+                                            <field name="medida" style="width:50%"/>
                                         </h4>
                                     </div>
                                 </div>
