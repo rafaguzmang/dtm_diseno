@@ -120,30 +120,30 @@ class Materiales(models.Model):
             res.append((result.id,f'{result.id}-  {result.nombre} {result.medida}'))
         return res
 
-    def get_view(self, view_id=None, view_type='form', **options):#Carga los items de todos los módulos de Almacén en un solo módulo de diseño
-        res = super(Materiales,self).get_view(view_id, view_type,**options)
-        # get_almacen = self.env['dtm.diseno.almacen'].search([])
-        # modelos = ['dtm.materiales',"dtm.materiales.angulos","dtm.materiales.solera","dtm.materiales.rodamientos","dtm.materiales.pintura","dtm.materiales.perfiles","dtm.materiales.otros","dtm.materiales.maquinados","dtm.materiales.canal","dtm.materiales.tornillos","dtm.materiales.tubos","dtm.materiales.varilla"]
-        # for item in get_almacen:
-        #     item.write({
-        #         "cantidad":0,
-        #         "apartado":0,
-        #         "disponible":0,
-        #     })
-        #     for modelo in modelos:
-        #         get_lamina = self.env[modelo].search([("codigo","=",item.id)])
-        #         if get_lamina:
-        #             item.write({
-        #                 "cantidad": get_lamina.cantidad,
-        #                 "apartado": get_lamina.apartado,
-        #                 "disponible": get_lamina.disponible,
-        #             })
-        #
-        # for find_id in range(1,self.env['dtm.diseno.almacen'].search([], order='id desc', limit=1).id+2):
-        #         if not self.env['dtm.diseno.almacen'].search([("id","=",find_id)]):
-        #             self.env.cr.execute(f"SELECT setval('dtm_diseno_almacen_id_seq', {find_id}, false);")
-        #             break
-        return res
+    # def get_view(self, view_id=None, view_type='form', **options):#Carga los items de todos los módulos de Almacén en un solo módulo de diseño
+    #     res = super(Materiales,self).get_view(view_id, view_type,**options)
+    #     # get_almacen = self.env['dtm.diseno.almacen'].search([])
+    #     # modelos = ['dtm.materiales',"dtm.materiales.angulos","dtm.materiales.solera","dtm.materiales.rodamientos","dtm.materiales.pintura","dtm.materiales.perfiles","dtm.materiales.otros","dtm.materiales.maquinados","dtm.materiales.canal","dtm.materiales.tornillos","dtm.materiales.tubos","dtm.materiales.varilla"]
+    #     # for item in get_almacen:
+    #     #     item.write({
+    #     #         "cantidad":0,
+    #     #         "apartado":0,
+    #     #         "disponible":0,
+    #     #     })
+    #     #     for modelo in modelos:
+    #     #         get_lamina = self.env[modelo].search([("codigo","=",item.id)])
+    #     #         if get_lamina:
+    #     #             item.write({
+    #     #                 "cantidad": get_lamina.cantidad,
+    #     #                 "apartado": get_lamina.apartado,
+    #     #                 "disponible": get_lamina.disponible,
+    #     #             })
+    #     #
+    #     # for find_id in range(1,self.env['dtm.diseno.almacen'].search([], order='id desc', limit=1).id+2):
+    #     #         if not self.env['dtm.diseno.almacen'].search([("id","=",find_id)]):
+    #     #             self.env.cr.execute(f"SELECT setval('dtm_diseno_almacen_id_seq', {find_id}, false);")
+    #     #             break
+    #     return res
 
     @api.depends("cantidad")
     def _compute_disponible(self):#-----------------------------Saca la cantidad del material que hay disponible---------------
