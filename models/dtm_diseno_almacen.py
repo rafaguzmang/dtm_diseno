@@ -61,11 +61,15 @@ class Materiales(models.Model):
                                                                  ("ipr","IPR"),("redondo","Redondo"),("rectangular","Rectangular"),
                                                                  ("varilla","Varilla"),("viga","Viga")])
     #---------------------------------------------Ruedas------------------------------------------------------------------------------------------
-    descripcion_rueda = fields.Selection(string="Ruedas",selection=[("giratorio","Giratorio"),("fijo","Fijo")])
+    descripcion_rueda = fields.Selection(string="Tipo",selection=[("giratorio","Giratoria"),("fijo","Fija")])
+    material_rueda = fields.Selection(string="Material",selection=[("poliuretano","Poliuretano"),("performa","Performa"),("poliolefino","Poliolefino")])
     diametro_rueda = fields.Selection(string="Diámetro", selection=[("25",2.5),("3",3.0),("35",3.5),("4",4.0),("5",5.0)])
     ancho_rueda = fields.Selection(string="Ancho",selection=[("875",0.875),("125",1.25),("14375",1.4375),("146875",1.46875),("13125",1.3125)])
-    balero_rueda = fields.Selection(string="Balero",selection=[("875",0.875),("125",1.25)])
-    @api.onchange("campo_nombre","material","tipo_carbon","tipo_inoxidable","tipo_aluminio","acabado_carbon","acabado_inoxidable","acabado_aluminio","largo","ancho","calibre","antiderrapante","seccion_perfil_cuadrado","calibre","largo_perfil","perfileria","seccion_perfil_rectangular")
+    balero_rueda = fields.Selection(string="Balero",selection=[("delrin","Delrin"),("bola","Bola"),("plano","Plano"),("roller","Roller"),("teflon","Teflon"),("sleeve","Sleeve")])
+    @api.onchange("campo_nombre","material","tipo_carbon","tipo_inoxidable","tipo_aluminio",
+      "acabado_carbon","acabado_inoxidable","acabado_aluminio","largo","ancho","calibre","antiderrapante",
+      "seccion_perfil_cuadrado","calibre","largo_perfil","perfileria","seccion_perfil_rectangular",
+      "descripcion_rueda","material_rueda","diametro_rueda","ancho_rueda","balero_rueda")
     def _onchange_especificaciones(self):
         selection_dict = dict(self._fields['campo_nombre'].selection)
         valor_nombre = selection_dict.get(self.campo_nombre)
@@ -80,7 +84,7 @@ class Materiales(models.Model):
             nombre = result[0]
             medida = result[1]
         if valor_nombre == 'Ruedas':
-            result = self.ruedas_func()[0]
+            result = self.ruedas_func()
             nombre = result[0]
             medida = result[1]
 
@@ -131,7 +135,7 @@ class Materiales(models.Model):
             medida = f"{valor_largo if valor_largo else ''} x {valor_ancho if valor_ancho else ''} @ {valor_calibre if valor_calibre else ''}"
 
             return (nombre,medida)
-
+    #Función para tratar las opciones de perfilería
     def perfil_func(self):
             selection_dict = dict(self._fields['perfileria'].selection)
             valor_perfileria = selection_dict.get(self.perfileria)
@@ -159,9 +163,24 @@ class Materiales(models.Model):
                 medida = f"{valor_perfil_rectangular if valor_perfil_rectangular else ''} @ {valor_calibre if valor_calibre else ''},{self.largo_perfil}"
                 self.seccion_perfil_cuadrado = None
             return (nombre,medida)
-
+    #Función para tratar las opciones de las ruedas
     def ruedas_func(self):
-        pass
+        selection_dict = dict(self._fields['descripcion_rueda'].selection)
+        valor_descripcion_rueda = selection_dict.get(self.descripcion_rueda)
+        selection_dict = dict(self._fields['material_rueda'].selection)
+        valor_material_rueda = selection_dict.get(self.material_rueda)
+        selection_dict = dict(self._fields['diametro_rueda'].selection)
+        valor_diametro_rueda = selection_dict.get(self.diametro_rueda)
+        selection_dict = dict(self._fields['ancho_rueda'].selection)
+        valor_ancho_rueda = selection_dict.get(self.ancho_rueda)
+        selection_dict = dict(self._fields['balero_rueda'].selection)
+        valor_balero_rueda = selection_dict.get(self.balero_rueda)
+
+        nombre = f"Rueda {valor_descripcion_rueda if valor_descripcion_rueda else ''} de {valor_material_rueda if valor_material_rueda else ''} {valor_balero_rueda if valor_balero_rueda else ''}"
+        medida = f"{valor_diametro_rueda if valor_diametro_rueda else ''} x {valor_ancho_rueda if valor_ancho_rueda else ''}"
+
+        return (nombre,medida)
+
 
     def selection_value(self):
         selection_dict = dict(self._fields['pintura_tipo'].selection)

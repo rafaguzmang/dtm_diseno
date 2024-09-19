@@ -36,6 +36,9 @@
                         <field name="nombre"></field>
                         <field name="medida"></field>
                         <field name="caracteristicas"></field>
+                        <separator/>
+                        <filter string="Completa" name="lamina_completa" domain="['|', '|', '|', ('medida', 'ilike', '120.0 x 48.0 @'), ('medida', 'ilike', '120.0 x 36.0 @'), ('medida', 'ilike', '96.0 x 48.0 @'), ('medida', 'ilike', '96.0 x 36.0 @')]" />
+                        <separator/>
                         <filter string="Existencia" name="diseno_pintura" domain="[('cantidad','>',0)]"/>
                         <separator/>
                         <filter string="Lámina" name="diseno_lamina" domain="[('nombre','like','Lámina')]"/>
@@ -136,7 +139,7 @@
                                             </div>
                             <!--Medida-->
                                             <!--Lámina-->
-                                            <div style="display: flex;flex-direction: column;" attrs="{'invisible': ['|',('campo_nombre', '!=', 'lamina'),('campo_nombre', '!=', 'perfil'),('perfileria', '=', True)]}" >
+                                            <div style="display: flex;flex-direction: column;" attrs="{'invisible': ['|',('campo_nombre', '!=', 'lamina'),('campo_nombre', '!=', 'perfil')]}" >
                                                 <p>Calibre</p>
                                                 <field name="calibre"/>
                                             </div>
@@ -150,18 +153,25 @@
                                             </div>
                                 <!--Perfilería-->
                                             <!--cuadrado-->
-                                            <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('perfileria', '!=', 'cuadrado')]}">
-                                                <p>Sección</p>
-                                                <field name="seccion_perfil_cuadrado"/>
+                                            <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('campo_nombre', '!=', 'ruedas')]}">
+                                                <p>Tipo</p>
+                                                <field name="descripcion_rueda"/>
                                             </div>
-                                            <!--rectangular-->
-                                            <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('perfileria', '!=', 'rectangular')]}">
-                                                <p>Sección</p>
-                                                <field name="seccion_perfil_rectangular"/>
+                                            <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('campo_nombre', '!=', 'ruedas')]}">
+                                                <p>Material</p>
+                                                <field name="material_rueda"/>
                                             </div>
-                                            <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('perfileria', '=', False)]}" >
-                                                <p>Largo</p>
-                                                <field name="largo_perfil"/>
+                                            <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('campo_nombre', '!=', 'ruedas')]}" >
+                                                <p>Balero</p>
+                                                <field name="balero_rueda"/>
+                                            </div>
+                                             <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('campo_nombre', '!=', 'ruedas')]}">
+                                                <p>Diámetro</p>
+                                                <field name="diametro_rueda"/>
+                                            </div>
+                                            <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('campo_nombre', '!=', 'ruedas')]}" >
+                                                <p>Ancho</p>
+                                                <field name="ancho_rueda"/>
                                             </div>
                                         </div>
                                     </div>
