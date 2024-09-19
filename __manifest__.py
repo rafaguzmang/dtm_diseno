@@ -1,7 +1,10 @@
 {
     "name":"Diseño",
     "data":[
+        #Security
         'security/ir.model.access.csv',
+
+        #Views
         'views/dtm_diseno_almacen_views.xml',
         #Menú
         'views/menu_item.xml'

@@ -7,12 +7,11 @@ from odoo.http import request
 class Materiales(models.Model):
     _name = "dtm.diseno.almacen"
     _description = "Modelo donde se concentrán todos los materiales disponibles en almacén"
-    # _rec_name = "nombre"
-
+    _rec_name = "nombre"
 
     # -------------------------------------Datos del material -------------------------------------------------
-    nombre = fields.Char(string="Nombre")
-    medida = fields.Char(string="Medidas", readonly=False)
+    nombre = fields.Char(string="Nombre", readonly=True)
+    medida = fields.Char(string="Medidas", readonly=True)
     caracteristicas = fields.Char(string="Caracteristicas")
     notas = fields.Text(string="Notas")
     area = fields.Float(string="Área/Largo")
@@ -62,7 +61,7 @@ class Materiales(models.Model):
                                                                  ("ipr","IPR"),("redondo","Redondo"),("rectangular","Rectangular"),
                                                                  ("varilla","Varilla"),("viga","Viga")])
 
-    @api.onchange("campo_nombre","material","tipo_carbon","tipo_inoxidable","tipo_aluminio","acabado_carbon","acabado_inoxidable","acabado_aluminio","largo","ancho","calibre","antiderrapante","seccion_perfil_cuadrado","calibre","largo_perfil","perfileria")
+    @api.onchange("campo_nombre","material","tipo_carbon","tipo_inoxidable","tipo_aluminio","acabado_carbon","acabado_inoxidable","acabado_aluminio","largo","ancho","calibre","antiderrapante","seccion_perfil_cuadrado","calibre","largo_perfil","perfileria","seccion_perfil_rectangular")
     def _onchange_especificaciones(self):
         selection_dict = dict(self._fields['campo_nombre'].selection)
         valor_nombre = selection_dict.get(self.campo_nombre)
@@ -123,9 +122,11 @@ class Materiales(models.Model):
             if valor_perfileria == 'Cuadrado' :
                 nombre = f"Perfil {valor_perfileria if valor_perfileria else ''} {valor_material if valor_material else ''}"
                 medida = f"{valor_perfil_cuadrado if valor_perfil_cuadrado else ''} @ {valor_calibre if valor_calibre else ''},{self.largo_perfil}"
+                self.seccion_perfil_rectangular = None
             if valor_perfileria == 'Rectangular' :
                 nombre = f"Perfil {valor_perfileria if valor_perfileria else ''} {valor_material if valor_material else ''}"
                 medida = f"{valor_perfil_rectangular if valor_perfil_rectangular else ''} @ {valor_calibre if valor_calibre else ''},{self.largo_perfil}"
+                self.seccion_perfil_cuadrado = None
         else:
             nombre = valor_nombre if valor_nombre != "Pintura" else f"{valor_nombre} {self.nombre_pintura.nombre if self.nombre_pintura else ''} "
             medida = valor_nombre if valor_nombre != "Pintura" else f"{valor_pintura} en {cantidad}"
@@ -133,31 +134,30 @@ class Materiales(models.Model):
         self.nombre = nombre
         self.medida = medida
 
-
-    # def get_view(self, view_id=None, view_type='form', **options):#Carga los items de todos los módulos de Almacén en un solo módulo de diseño
-    #     res = super(Materiales,self).get_view(view_id, view_type,**options)
-    #     # get_almacen = self.env['dtm.diseno.almacen'].search([])
-    #     # modelos = ['dtm.materiales',"dtm.materiales.angulos","dtm.materiales.solera","dtm.materiales.rodamientos","dtm.materiales.pintura","dtm.materiales.perfiles","dtm.materiales.otros","dtm.materiales.maquinados","dtm.materiales.canal","dtm.materiales.tornillos","dtm.materiales.tubos","dtm.materiales.varilla"]
-    #     # for item in get_almacen:
-    #     #     item.write({
-    #     #         "cantidad":0,
-    #     #         "apartado":0,
-    #     #         "disponible":0,
-    #     #     })
-    #     #     for modelo in modelos:
-    #     #         get_lamina = self.env[modelo].search([("codigo","=",item.id)])
-    #     #         if get_lamina:
-    #     #             item.write({
-    #     #                 "cantidad": get_lamina.cantidad,
-    #     #                 "apartado": get_lamina.apartado,
-    #     #                 "disponible": get_lamina.disponible,
-    #     #             })
-    #     #
-    #     # for find_id in range(1,self.env['dtm.diseno.almacen'].search([], order='id desc', limit=1).id+2):
-    #     #         if not self.env['dtm.diseno.almacen'].search([("id","=",find_id)]):
-    #     #             self.env.cr.execute(f"SELECT setval('dtm_diseno_almacen_id_seq', {find_id}, false);")
-    #     #             break
-    #     return res
+    def get_view(self, view_id=None, view_type='form', **options):#Carga los items de todos los módulos de Almacén en un solo módulo de diseño
+        res = super(Materiales,self).get_view(view_id, view_type,**options)
+        # get_almacen = self.env['dtm.diseno.almacen'].search([])
+        # modelos = ['dtm.materiales',"dtm.materiales.angulos","dtm.materiales.solera","dtm.materiales.rodamientos","dtm.materiales.pintura","dtm.materiales.perfiles","dtm.materiales.otros","dtm.materiales.maquinados","dtm.materiales.canal","dtm.materiales.tornillos","dtm.materiales.tubos","dtm.materiales.varilla"]
+        # for item in get_almacen:
+        #     item.write({
+        #         "cantidad":0,
+        #         "apartado":0,
+        #         "disponible":0,
+        #     })
+        #     for modelo in modelos:
+        #         get_lamina = self.env[modelo].search([("codigo","=",item.id)])
+        #         if get_lamina:
+        #             item.write({
+        #                 "cantidad": get_lamina.cantidad,
+        #                 "apartado": get_lamina.apartado,
+        #                 "disponible": get_lamina.disponible,
+        #             })
+        #
+        # for find_id in range(1,self.env['dtm.diseno.almacen'].search([], order='id desc', limit=1).id+2):
+        #         if not self.env['dtm.diseno.almacen'].search([("id","=",find_id)]):
+        #             self.env.cr.execute(f"SELECT setval('dtm_diseno_almacen_id_seq', {find_id}, false);")
+        #             break
+        return res
 
     @api.depends("cantidad")
     #-----------------------------Saca la cantidad del material que hay disponible---------------
