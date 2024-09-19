@@ -23,7 +23,7 @@ class Materiales(models.Model):
     disponible = fields.Integer(string="Disponible", readonly="True",store=True)
     #---------------------------------------Tipo de item ------------------------------------------------------
     campo_nombre = fields.Selection(string="Item",selection=[("lamina","Lámina"),("perfil","Perfil"),("placa","Placa"),
-                                                         ("tornillo","Tornillo"),("pintura","Pintura"),
+                                                         ("tornilleria","Tornillería"),("pintura","Pintura"),
                                                          ("ruedas","Ruedas")])
 
     calibre = fields.Selection(string="Calibre", selection = [('10.0',10.0),('11.0',11.0),('12.0',12.0),
@@ -46,8 +46,8 @@ class Materiales(models.Model):
     nombre_pintura = fields.Many2one("odt.diseno.pintura",string="Nombre")
 
     #---------------------------------------------Dimenciones Lámina----------------------------------------------------------------------------
-    largo = fields.Selection(string="Alto", selection=[('120.0',120),('96',96)])
-    ancho = fields.Selection(string="Ancho", selection=[('48.0',48),('36.0',36)])
+    largo = fields.Selection(string="Alto", selection=[('120.0',120.0),('96',96.0)])
+    ancho = fields.Selection(string="Ancho", selection=[('48.0',48.0),('36.0',36.0)])
     #---------------------------------------------Dimenciones Perfil----------------------------------------------------------------------------
     largo_perfil = fields.Integer(string="Largo", default=236.0)
     seccion_perfil_cuadrado = fields.Selection(string="Sección", selection=[('1x1','1.0 x 1.0'),('125x125','1.25 x 1.25'),('15x15','1.5 x 1.5'),('2x2','2.0 x 2.0'),('25x25','2.5 x 2.5'),('3x3','3.0 x 3.0'),('35x35','3.5 x 3.5'),('4x4','4.0 x 4.0'),
@@ -60,54 +60,66 @@ class Materiales(models.Model):
     perfileria = fields.Selection(string="Perfilería",selection=[("angulo","Ángulos"),("canales","Canales"),("cuadrado","Cuadrado"),
                                                                  ("ipr","IPR"),("redondo","Redondo"),("rectangular","Rectangular"),
                                                                  ("varilla","Varilla"),("viga","Viga")])
-
+    #---------------------------------------------Ruedas------------------------------------------------------------------------------------------
+    descripcion_rueda = fields.Selection(string="Ruedas",selection=[("giratorio","Giratorio"),("fijo","Fijo")])
+    diametro_rueda = fields.Selection(string="Diámetro", selection=[("25",2.5),("3",3.0),("35",3.5),("4",4.0),("5",5.0)])
+    ancho_rueda = fields.Selection(string="Ancho",selection=[("875",0.875),("125",1.25),("14375",1.4375),("146875",1.46875),("13125",1.3125)])
+    balero_rueda = fields.Selection(string="Balero",selection=[("875",0.875),("125",1.25)])
     @api.onchange("campo_nombre","material","tipo_carbon","tipo_inoxidable","tipo_aluminio","acabado_carbon","acabado_inoxidable","acabado_aluminio","largo","ancho","calibre","antiderrapante","seccion_perfil_cuadrado","calibre","largo_perfil","perfileria","seccion_perfil_rectangular")
     def _onchange_especificaciones(self):
         selection_dict = dict(self._fields['campo_nombre'].selection)
         valor_nombre = selection_dict.get(self.campo_nombre)
-
-        selection_dict = dict(self._fields['material'].selection)
-        valor_material = selection_dict.get(self.material)
-
-        selection_dict = dict(self._fields['tipo_carbon'].selection)
-        valor_tipo_carbon = selection_dict.get(self.tipo_carbon)
-        selection_dict = dict(self._fields['tipo_inoxidable'].selection)
-        valor_tipo_inoxidable = selection_dict.get(self.tipo_inoxidable)
-        selection_dict = dict(self._fields['tipo_aluminio'].selection)
-        valor_tipo_aluminio = selection_dict.get(self.tipo_aluminio)
-
-        selection_dict = dict(self._fields['acabado_carbon'].selection)
-        valor_acabado_carbon = selection_dict.get(self.acabado_carbon)
-        selection_dict = dict(self._fields['acabado_inoxidable'].selection)
-        valor_acabado_inoxidable = selection_dict.get(self.acabado_inoxidable)
-        selection_dict = dict(self._fields['acabado_aluminio'].selection)
-        valor_acabado_aluminio = selection_dict.get(self.acabado_aluminio)
-
-        selection_dict = dict(self._fields['perfileria'].selection)
-        valor_perfileria = selection_dict.get(self.perfileria)
-
-        selection_dict = dict(self._fields['largo'].selection)
-        valor_largo = selection_dict.get(self.largo)
-
-        selection_dict = dict(self._fields['ancho'].selection)
-        valor_ancho = selection_dict.get(self.ancho)
-
-        selection_dict = dict(self._fields['calibre'].selection)
-        valor_calibre = selection_dict.get(self.calibre)
-
-        selection_dict = dict(self._fields['seccion_perfil_cuadrado'].selection)
-        valor_perfil_cuadrado = selection_dict.get(self.seccion_perfil_cuadrado)
-
-        selection_dict = dict(self._fields['seccion_perfil_rectangular'].selection)
-        valor_perfil_rectangular = selection_dict.get(self.seccion_perfil_rectangular)
-
-        selection_dict = dict(self._fields['pintura_tipo'].selection)
-        valor_pintura = selection_dict.get(self.pintura_tipo)
-        cantidad = "Litros" if self.pintura_tipo =="liquida" else "Kilos" if self.pintura_tipo == "polvo" else "Latas"
-
         nombre = ""
         medida = ""
         if valor_nombre == 'Lámina':
+            result = self.lamina_func()
+            nombre = result[0]
+            medida = result[1]
+        if valor_nombre == 'Perfil':
+            result = self.perfil_func()[0]
+            nombre = result[0]
+            medida = result[1]
+        if valor_nombre == 'Ruedas':
+            result = self.ruedas_func()[0]
+            nombre = result[0]
+            medida = result[1]
+
+        # else:
+        #     nombre = valor_nombre if valor_nombre != "Pintura" else f"{valor_nombre} {self.nombre_pintura.nombre if self.nombre_pintura else ''} "
+        #     medida = valor_nombre if valor_nombre != "Pintura" else f"{valor_pintura} en {cantidad}"
+
+        self.nombre = nombre
+        self.medida = medida
+
+    #Función para tratar las opciones de las lámina
+    def lamina_func(self):
+            selection_dict = dict(self._fields['material'].selection)
+            valor_material = selection_dict.get(self.material)
+
+            selection_dict = dict(self._fields['tipo_carbon'].selection)
+            valor_tipo_carbon = selection_dict.get(self.tipo_carbon)
+
+            selection_dict = dict(self._fields['tipo_inoxidable'].selection)
+            valor_tipo_inoxidable = selection_dict.get(self.tipo_inoxidable)
+            selection_dict = dict(self._fields['tipo_aluminio'].selection)
+            valor_tipo_aluminio = selection_dict.get(self.tipo_aluminio)
+
+            selection_dict = dict(self._fields['acabado_carbon'].selection)
+            valor_acabado_carbon = selection_dict.get(self.acabado_carbon)
+            selection_dict = dict(self._fields['acabado_inoxidable'].selection)
+            valor_acabado_inoxidable = selection_dict.get(self.acabado_inoxidable)
+            selection_dict = dict(self._fields['acabado_aluminio'].selection)
+            valor_acabado_aluminio = selection_dict.get(self.acabado_aluminio)
+
+            selection_dict = dict(self._fields['largo'].selection)
+            valor_largo = selection_dict.get(self.largo)
+
+            selection_dict = dict(self._fields['ancho'].selection)
+            valor_ancho = selection_dict.get(self.ancho)
+
+            selection_dict = dict(self._fields['calibre'].selection)
+            valor_calibre = selection_dict.get(self.calibre)
+            nombre = "Lámina"
             if self.material == 'carbon':
                 nombre = f"Lámina {valor_material if valor_material else ''} {valor_tipo_carbon if valor_tipo_carbon else ''} {valor_acabado_carbon if valor_acabado_carbon else ''}"
             if self.material == 'inoxidable':
@@ -116,9 +128,28 @@ class Materiales(models.Model):
                 nombre = f"Lámina {valor_material if valor_material else ''} {valor_tipo_aluminio if valor_tipo_aluminio else ''} {valor_acabado_aluminio if valor_acabado_aluminio else ''}"
             if self.material == 'galvanizado':
                 nombre = f"Lámina {valor_material if valor_material else ''} "
-            medida = f"{valor_largo} x {valor_ancho} @ {valor_calibre}"
-        elif valor_nombre == 'Perfil':
+            medida = f"{valor_largo if valor_largo else ''} x {valor_ancho if valor_ancho else ''} @ {valor_calibre if valor_calibre else ''}"
+
+            return (nombre,medida)
+
+    def perfil_func(self):
+            selection_dict = dict(self._fields['perfileria'].selection)
+            valor_perfileria = selection_dict.get(self.perfileria)
+
+            selection_dict = dict(self._fields['seccion_perfil_cuadrado'].selection)
+            valor_perfil_cuadrado = selection_dict.get(self.seccion_perfil_cuadrado)
+
+            selection_dict = dict(self._fields['seccion_perfil_rectangular'].selection)
+            valor_perfil_rectangular = selection_dict.get(self.seccion_perfil_rectangular)
+
+            selection_dict = dict(self._fields['material'].selection)
+            valor_material = selection_dict.get(self.material)
+
+            selection_dict = dict(self._fields['calibre'].selection)
+            valor_calibre = selection_dict.get(self.calibre)
+
             nombre = "Perfil"
+            medida = ""
             if valor_perfileria == 'Cuadrado' :
                 nombre = f"Perfil {valor_perfileria if valor_perfileria else ''} {valor_material if valor_material else ''}"
                 medida = f"{valor_perfil_cuadrado if valor_perfil_cuadrado else ''} @ {valor_calibre if valor_calibre else ''},{self.largo_perfil}"
@@ -127,12 +158,16 @@ class Materiales(models.Model):
                 nombre = f"Perfil {valor_perfileria if valor_perfileria else ''} {valor_material if valor_material else ''}"
                 medida = f"{valor_perfil_rectangular if valor_perfil_rectangular else ''} @ {valor_calibre if valor_calibre else ''},{self.largo_perfil}"
                 self.seccion_perfil_cuadrado = None
-        else:
-            nombre = valor_nombre if valor_nombre != "Pintura" else f"{valor_nombre} {self.nombre_pintura.nombre if self.nombre_pintura else ''} "
-            medida = valor_nombre if valor_nombre != "Pintura" else f"{valor_pintura} en {cantidad}"
+            return (nombre,medida)
 
-        self.nombre = nombre
-        self.medida = medida
+    def ruedas_func(self):
+        pass
+
+    def selection_value(self):
+        selection_dict = dict(self._fields['pintura_tipo'].selection)
+        valor_pintura = selection_dict.get(self.pintura_tipo)
+        cantidad = "Litros" if self.pintura_tipo =="liquida" else "Kilos" if self.pintura_tipo == "polvo" else "Latas"
+
 
     def get_view(self, view_id=None, view_type='form', **options):#Carga los items de todos los módulos de Almacén en un solo módulo de diseño
         res = super(Materiales,self).get_view(view_id, view_type,**options)
@@ -165,6 +200,11 @@ class Materiales(models.Model):
         for result in self:
             result.disponible = result.cantidad - result.apartado
 
+    def name_get(self):#--------------------------------Arreglo para cuando usa este modulo como Many2one--------------------
+        res = []
+        for result in self:
+            res.append((result.id,f'{result.id}-  {result.nombre} {result.medida}'))
+        return res
 
 
 
