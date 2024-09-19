@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
        <data>
-             <record id="dtm_diseno_almacen_tree" model="ir.ui.view">
+            <record id="dtm_diseno_almacen_tree" model="ir.ui.view">
                 <field name="name">dtm_diseno_almacen_tree</field>
                 <field name="model">dtm.diseno.almacen</field>
                 <field name="arch" type="xml">
@@ -24,7 +24,7 @@
                 <field name="res_model">dtm.diseno.almacen</field>
                 <field name="view_mode">tree,form</field>
                 <field name="view_id" ref="dtm_diseno_almacen_tree"/>
-                <field name="context"></field>
+                <field name="context">{'search_default_lamina_completa': True}</field>
             </record>
 
            <record id = "dtm_diseno_almace_search" model="ir.ui.view">
@@ -37,7 +37,7 @@
                         <field name="medida"></field>
                         <field name="caracteristicas"></field>
                         <separator/>
-                        <filter string="Completa" name="lamina_completa" domain="['|', '|', '|', ('medida', 'ilike', '120.0 x 48.0 @'), ('medida', 'ilike', '120.0 x 36.0 @'), ('medida', 'ilike', '96.0 x 48.0 @'), ('medida', 'ilike', '96.0 x 36.0 @')]" />
+                        <filter string="Lámina completa" name="lamina_completa" domain="['|', '|', '|', ('medida', 'ilike', '120.0 x 48.0 @'), ('medida', 'ilike', '120.0 x 36.0 @'), ('medida', 'ilike', '96.0 x 48.0 @'), ('medida', 'ilike', '96.0 x 36.0 @')]" />
                         <separator/>
                         <filter string="Existencia" name="diseno_pintura" domain="[('cantidad','>',0)]"/>
                         <separator/>
