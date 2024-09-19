@@ -5,7 +5,7 @@
                 <field name="name">dtm_diseno_almacen_tree</field>
                 <field name="model">dtm.diseno.almacen</field>
                 <field name="arch" type="xml">
-                    <tree>
+                    <tree delete="false">
                         <field name="id"></field>
                         <field name="nombre"></field>
                         <field name="medida"></field>
@@ -150,14 +150,14 @@
                                             </div>
                                 <!--Perfilería-->
                                             <!--cuadrado-->
-                                            <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('campo_nombre', '!=', 'perfil'),('perfileria', '=', False)]}" >
+                                            <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('perfileria', '!=', 'cuadrado')]}">
                                                 <p>Sección</p>
                                                 <field name="seccion_perfil_cuadrado"/>
                                             </div>
-                <!--rectangular-->
-                                            <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('campo_nombre', '!=', 'perfil'),('perfileria', '=', False)]}" >
+                                            <!--rectangular-->
+                                            <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('perfileria', '!=', 'rectangular')]}">
                                                 <p>Sección</p>
-                                                <field name="seccion_perfil_cuadrado"/>
+                                                <field name="seccion_perfil_rectangular"/>
                                             </div>
                                             <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('perfileria', '=', False)]}" >
                                                 <p>Largo</p>
