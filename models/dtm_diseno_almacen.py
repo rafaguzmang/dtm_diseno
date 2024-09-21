@@ -60,16 +60,22 @@ class Materiales(models.Model):
     perfileria = fields.Selection(string="Perfilería",selection=[("angulo","Ángulos"),("canales","Canales"),("cuadrado","Cuadrado"),
                                                                  ("ipr","IPR"),("redondo","Redondo"),("rectangular","Rectangular"),
                                                                  ("varilla","Varilla"),("viga","Viga")])
-    #---------------------------------------------Ruedas------------------------------------------------------------------------------------------
+    tubo_cedula = fields.Selection(string="Cedula",selection=[("30","30"),("40","40"),("80","80"),("industrial","Industrial")])
+    tubo_diametro_30 = fields.Selection(string="30",selection=[("75",0.75),("1",1.0),("125",1.25),("15",1.5),("2",2.0),("25",2.5),("3",3.0),("4",4.0),("6625",6.625)])
+    tubo_diametro_40 = fields.Selection(string="40",selection=[("375",0.375),("05",0.5),("75",0.75),("1",1.0),("125",1.25),("15",1.5),("2",2.0)])
+    tubo_diametro_80 = fields.Selection(string="40",selection=[("05",0.5),("75",0.75),("1",1.0),("125",1.25),("15",1.5),("2",2.0),("25",2.5),("3",3.0),("4",4.0),("6625",6.625)])
+    tubo_diametro_industrial = fields.Selection(string="Industrial",selection=[("05",0.5),("625",0.625),("75",0.75),("875",0.875),("1",1.0),("125",1.25)])
+    #---------------------------------------------Ruedas------------------------------------------------------------------------------------------Ranuradas Nylon AltaTemperatura
     descripcion_rueda = fields.Selection(string="Tipo",selection=[("giratorio","Giratoria"),("fijo","Fija")])
-    material_rueda = fields.Selection(string="Material",selection=[("poliuretano","Poliuretano"),("performa","Performa"),("poliolefino","Poliolefino")])
-    diametro_rueda = fields.Selection(string="Diámetro", selection=[("25",2.5),("3",3.0),("35",3.5),("4",4.0),("5",5.0)])
-    ancho_rueda = fields.Selection(string="Ancho",selection=[("875",0.875),("125",1.25),("14375",1.4375),("146875",1.46875),("13125",1.3125)])
+    material_rueda = fields.Selection(string="Material",selection=[("poliuretano","Poliuretano"),("performa","Performa"),("poliolefino","Poliolefino"),("maxim","Maxim"),("fenolicas","Fenolicas"),("hule","Hule"),("acero","Acero"),("transForma","TransForma"),("endura","Endura")])
+    diametro_rueda = fields.Selection(string="Diámetro", selection=[("25",2.5),("3",3.0),("3",3.25),("35",3.5),("4",4.0),("5",5.0),("6",6.0),("8",8.0),("10",10.0)])
+    ancho_rueda = fields.Selection(string="Ancho",selection=[("875",0.875),("125",1.25),("14375",1.4375),("146875",1.46875),("13125",1.3125),("15",1.5),("2",2),("25",2.5)])
     balero_rueda = fields.Selection(string="Balero",selection=[("delrin","Delrin"),("bola","Bola"),("plano","Plano"),("roller","Roller"),("teflon","Teflon"),("sleeve","Sleeve")])
     @api.onchange("campo_nombre","material","tipo_carbon","tipo_inoxidable","tipo_aluminio",
       "acabado_carbon","acabado_inoxidable","acabado_aluminio","largo","ancho","calibre","antiderrapante",
       "seccion_perfil_cuadrado","calibre","largo_perfil","perfileria","seccion_perfil_rectangular",
-      "descripcion_rueda","material_rueda","diametro_rueda","ancho_rueda","balero_rueda")
+      "descripcion_rueda","material_rueda","diametro_rueda","ancho_rueda","balero_rueda","tubo_cedula","tubo_diametro_30",
+      "tubo_diametro_40","tubo_diametro_industrial","tubo_diametro_80")
     def _onchange_especificaciones(self):
         selection_dict = dict(self._fields['campo_nombre'].selection)
         valor_nombre = selection_dict.get(self.campo_nombre)
@@ -80,7 +86,7 @@ class Materiales(models.Model):
             nombre = result[0]
             medida = result[1]
         if valor_nombre == 'Perfil':
-            result = self.perfil_func()[0]
+            result = self.perfil_func()
             nombre = result[0]
             medida = result[1]
         if valor_nombre == 'Ruedas':
@@ -151,8 +157,22 @@ class Materiales(models.Model):
 
             selection_dict = dict(self._fields['calibre'].selection)
             valor_calibre = selection_dict.get(self.calibre)
+            selection_dict = dict(self._fields['tubo_cedula'].selection)
+            valor_tubo_cedula = selection_dict.get(self.tubo_cedula)
 
-            nombre = "Perfil"
+            selection_dict = dict(self._fields['tubo_diametro_30'].selection)
+            valor_tubo_diametro_30 = selection_dict.get(self.tubo_diametro_30)
+
+            selection_dict = dict(self._fields['tubo_diametro_40'].selection)
+            valor_tubo_diametro_40 = selection_dict.get(self.tubo_diametro_40)
+
+            selection_dict = dict(self._fields['tubo_diametro_80'].selection)
+            valor_tubo_diametro_80 = selection_dict.get(self.tubo_diametro_80)
+
+            selection_dict = dict(self._fields['tubo_diametro_industrial'].selection)
+            valor_tubo_diametro_industrial = selection_dict.get(self.tubo_diametro_industrial)
+
+            nombre = ""
             medida = ""
             if valor_perfileria == 'Cuadrado' :
                 nombre = f"Perfil {valor_perfileria if valor_perfileria else ''} {valor_material if valor_material else ''}"
@@ -162,6 +182,21 @@ class Materiales(models.Model):
                 nombre = f"Perfil {valor_perfileria if valor_perfileria else ''} {valor_material if valor_material else ''}"
                 medida = f"{valor_perfil_rectangular if valor_perfil_rectangular else ''} @ {valor_calibre if valor_calibre else ''},{self.largo_perfil}"
                 self.seccion_perfil_cuadrado = None
+            if valor_perfileria == 'Redondo' :
+
+                if valor_tubo_cedula == "30":
+                    medida = f" ⌀ {valor_tubo_diametro_30 if valor_tubo_diametro_30 else ''} - {self.largo_perfil}"
+                if valor_tubo_cedula == "40" :
+                    medida = f" ⌀ {valor_tubo_diametro_40 if valor_tubo_diametro_40 else ''} - {self.largo_perfil}"
+                if valor_tubo_cedula == "80" :
+                    medida = f" ⌀ {valor_tubo_diametro_80 if valor_tubo_diametro_80 else ''} - {self.largo_perfil}"
+                if valor_tubo_cedula == "Industrial":
+                    medida = f" ⌀ {valor_tubo_diametro_industrial if valor_tubo_diametro_industrial else ''} - {self.largo_perfil}"
+                nombre = f"Perfil {valor_perfileria if valor_perfileria else ''} {valor_material if valor_material else ''} Cédula {valor_tubo_cedula if valor_tubo_cedula else ''}"
+                self.seccion_perfil_cuadrado = None
+                self.seccion_perfil_rectangular = None
+
+
             return (nombre,medida)
     #Función para tratar las opciones de las ruedas
     def ruedas_func(self):
