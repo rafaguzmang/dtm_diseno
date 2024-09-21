@@ -137,6 +137,46 @@
                                                 <p>Material</p>
                                                 <field name="material"/>
                                             </div>
+                                            <div style="display: flex;flex-direction: column;" attrs="{'invisible': ['|',('campo_nombre', '!=', 'perfil'),('perfileria', '=', 'redondo')]}" >
+                                                <p>Calibre</p>
+                                                <field name="calibre"/>
+                                            </div>
+                            <!--Redondo-->
+                                            <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('perfileria', '!=', 'redondo')]}" >
+                                                <p>Cédula</p>
+                                                <field name="tubo_cedula"/>
+                                            </div>
+                                            <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('tubo_cedula', '!=', '30')]}" >
+                                                <p>Diámetro</p>
+                                                <field name="tubo_diametro_30"/>
+                                            </div>
+                                            <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('tubo_cedula', '!=', '40')]}" >
+                                                <p>Diámetro</p>
+                                                <field name="tubo_diametro_40"/>
+                                            </div>
+                                            <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('tubo_cedula', '!=', '80')]}" >
+                                                <p>Diámetro</p>
+                                                <field name="tubo_diametro_80"/>
+                                            </div>
+                                            <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('tubo_cedula', '!=', 'industrial')]}" >
+                                                <p>Diámetro</p>
+                                                <field name="tubo_diametro_industrial"/>
+                                            </div>
+                            <!--cuadrado-->
+                                            <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('perfileria', '!=', 'cuadrado')]}" >
+                                                <p>Sección</p>
+                                                <field name="seccion_perfil_cuadrado"/>
+                                            </div>
+                            <!--rectangular-->
+                                            <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('perfileria', '!=', 'rectangular')]}" >
+                                                <p>Sección</p>
+                                                <field name="seccion_perfil_rectangular"/>
+                                            </div>
+
+                                            <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('campo_nombre', '!=', 'perfil')]}" >
+                                                <p>Largo</p>
+                                                <field name="largo_perfil"/>
+                                            </div>
                             <!--Medida-->
                                             <!--Lámina-->
                                             <div style="display: flex;flex-direction: column;" attrs="{'invisible': ['|',('campo_nombre', '!=', 'lamina'),('campo_nombre', '!=', 'perfil')]}" >
@@ -151,8 +191,7 @@
                                                 <p>Ancho</p>
                                                 <field name="ancho"/>
                                             </div>
-                                <!--Perfilería-->
-                                            <!--cuadrado-->
+                                <!--Ruedas-->
                                             <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('campo_nombre', '!=', 'ruedas')]}">
                                                 <p>Tipo</p>
                                                 <field name="descripcion_rueda"/>
