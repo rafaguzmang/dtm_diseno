@@ -20,7 +20,7 @@
             </record>
 
             <record id="dtm_diseno_almacen_accion" model="ir.actions.act_window">
-                <field name="name">Almacén de Diseño</field>
+                <field name="name">Inventario</field>
                 <field name="res_model">dtm.diseno.almacen</field>
                 <field name="view_mode">tree,form</field>
                 <field name="view_id" ref="dtm_diseno_almacen_tree"/>
@@ -74,10 +74,7 @@
                         <filter string="@ 5/8" name="diseno_cal_5_8" domain="[('medida','like','@ 0.625')]"/>
                         <filter string="@ 3/4" name="diseno_cal_3_4" domain="[('medida','like','@ 0.75')]"/>
                         <filter string="@ 7/8" name="diseno_cal_7_8" domain="[('medida','like','@ 0.875')]"/>
-
                    </search>
-
-
                </field>
            </record>
 
@@ -133,14 +130,38 @@
                                                 <p>Perfilería</p>
                                                 <field name="perfileria"/>
                                             </div>
-                                            <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('campo_nombre', '!=', 'perfil'),('perfileria', '=', False)]}" >
+                                            <div style="display: flex;flex-direction: column;" attrs="{'invisible': ['|',('campo_nombre', '!=', 'perfil'),('perfileria', '=', 'varilla')]}" >
                                                 <p>Material</p>
                                                 <field name="material"/>
                                             </div>
-                                            <div style="display: flex;flex-direction: column;" attrs="{'invisible': ['|',('campo_nombre', '!=', 'perfil'),('perfileria', '=', 'redondo')]}" >
+                                            <div style="display: flex;flex-direction: column;" attrs="{'invisible': ['|',('campo_nombre', '!=', 'lamina'),('campo_nombre', '!=', 'perfil')]}" >
                                                 <p>Calibre</p>
                                                 <field name="calibre"/>
                                             </div>
+                            <!--Varilla-->
+                                            <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('perfileria', '!=', 'varilla')]}" >
+                                                <p>Material</p>
+                                                <field name="varilla_material"/>
+                                            </div>
+                                             <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('perfileria', '!=', 'varilla')]}" >
+                                                <p>Tipo</p>
+                                                <field name="varilla_tipo"/>
+                                            </div>
+                                            <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('perfileria', '!=', 'varilla')]}" >
+                                                <p>Calibre</p>
+                                                <field name="varilla_calibre"/>
+                                            </div>
+
+                            <!--P.T.R-->
+                                            <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('perfileria', '!=', 'ptr')]}" >
+                                                <p>Calibre</p>
+                                                <field name="ptr_calibre"/>
+                                            </div>
+                                             <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('perfileria', '!=', 'ptr')]}" >
+                                                <p>Sección</p>
+                                                <field name="ptr_seccion"/>
+                                            </div>
+
                             <!--Redondo-->
                                             <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('perfileria', '!=', 'redondo')]}" >
                                                 <p>Cédula</p>
@@ -191,7 +212,36 @@
                                                 <p>Ancho</p>
                                                 <field name="ancho"/>
                                             </div>
-                                <!--Ruedas-->
+                            <!--Tornillería-->
+                                            <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('campo_nombre', '!=', 'tornilleria')]}">
+                                                <p>Tornillería</p>
+                                                <field name="tornilleria"/>
+                                            </div>
+                                            <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('tornilleria', '!=', 'tornillo')]}">
+                                                <p>Tipo</p>
+                                                <field name="tornilleria_tornillo"/>
+                                            </div>
+                                            <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('tornilleria', '!=', 'tornillo')]}" >
+                                                <p>Cabeza</p>
+                                                <field name="tornillo_cabeza"/>
+                                            </div>
+                                             <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('tornilleria', '!=', 'tornillo')]}">
+                                                <p>Material</p>
+                                                <field name="tornillo_material"/>
+                                            </div>
+                                            <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('tornilleria', '!=', 'tornillo')]}" >
+                                                <p>Diámetro</p>
+                                                <field name="tornillo_diametro"/>
+                                            </div>
+                                            <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('tornilleria', '!=', 'tornillo')]}" >
+                                                <p>Paso</p>
+                                                <field name="tornillo_paso"/>
+                                            </div>
+                                            <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('tornilleria', '!=', 'tornillo')]}" >
+                                                <p>Longitud</p>
+                                                <field name="tornillo_longitud"/>
+                                            </div>
+                            <!--Ruedas-->
                                             <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('campo_nombre', '!=', 'ruedas')]}">
                                                 <p>Tipo</p>
                                                 <field name="descripcion_rueda"/>
