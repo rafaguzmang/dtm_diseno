@@ -61,7 +61,7 @@
                         <filter string="@ 20" name="diseno_cal_18" domain="[('medida','like','@ 20')]"/>
                         <filter string="@ 22" name="diseno_cal_22" domain="[('medida','like','@ 22')]"/>
                         <separator/>
-                        <filter string="Ácero al carbón" name="diseno_carbon" domain="[('nombre','ilike','carbón')]"/>
+                        <filter string="Acero al carbón" name="diseno_carbon" domain="[('nombre','ilike','carbón')]"/>
                         <filter string="Inoxidable" name="diseno_inox" domain="[('nombre','ilike','inoxidable')]"/>
                         <filter string="Galvanizado" name="diseno_galvanizada" domain="[('nombre','ilike','galvanizado')]"/>
                         <filter string="Aluminio" name="diseno_alumino" domain="[('nombre','ilike','aluminio')]"/>
