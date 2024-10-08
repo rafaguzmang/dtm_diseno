@@ -49,7 +49,7 @@ class Materiales(models.Model):
     largo = fields.Selection(string="Alto", selection=[('120.0',120.0),('96',96.0)])
     ancho = fields.Selection(string="Ancho", selection=[('48.0',48.0),('36.0',36.0)])
     #---------------------------------------------Dimenciones Perfil----------------------------------------------------------------------------
-    largo_perfil = fields.Float(string="Largo", default=236.0)
+    largo_perfil = fields.Selection(string="Largo", selection = [("236.0","236.0")])
     seccion_perfil_cuadrado = fields.Selection(string="Sección", selection=[('1x1','1.0 x 1.0'),('125x125','1.25 x 1.25'),('15x15','1.5 x 1.5'),('2x2','2.0 x 2.0'),('25x25','2.5 x 2.5'),('3x3','3.0 x 3.0'),('35x35','3.5 x 3.5'),('4x4','4.0 x 4.0'),
                                                             ('45x45','4.5 x 4.5'),('5x5','5.0 x 5.0'),('6x6','6.0 x 6.0'),('7x7','7.0 x 7.0'),('8x8','8.0 x 8.0'),('10x10','10.0 x 10.0'),('12x12','12.0 x 12.0'),('14x14','14.0 x 14.0'),
                                                             ('16x16','16.0 x 16.0')])
@@ -60,12 +60,18 @@ class Materiales(models.Model):
     perfileria = fields.Selection(string="Perfilería",selection=[("angulo","Ángulos"),("canales","Canales"),("cuadrado","Cuadrado"),
                                                                  ("ipr","I.P.R."),("ptr","P.T.R."),("redondo","Redondo"),("rectangular","Rectangular"),
                                                                  ("varilla","Varilla"),("viga","Viga")])
+    material_perfil = fields.Selection(string="Material", selection=[('carbon','Acero al Carbón'),('inoxidable','Inoxidable'),('galvanizado','Galvanizado'),
+                                                              ('aluminio','Aluminio')])
     # -----------------------------Redondo---------------
     tubo_cedula = fields.Selection(string="Cedula",selection=[("30","30"),("40","40"),("80","80"),("industrial","Industrial")])
     tubo_diametro_30 = fields.Selection(string="30",selection=[("75",0.75),("1",1.0),("125",1.25),("15",1.5),("2",2.0),("25",2.5),("3",3.0),("4",4.0),("6625",6.625)])
     tubo_diametro_40 = fields.Selection(string="40",selection=[("375",0.375),("05",0.5),("75",0.75),("1",1.0),("125",1.25),("15",1.5),("2",2.0)])
     tubo_diametro_80 = fields.Selection(string="40",selection=[("05",0.5),("75",0.75),("1",1.0),("125",1.25),("15",1.5),("2",2.0),("25",2.5),("3",3.0),("4",4.0),("6625",6.625)])
     tubo_diametro_industrial = fields.Selection(string="Industrial",selection=[("05",0.5),("625",0.625),("75",0.75),("875",0.875),("1",1.0),("125",1.25)])
+    #------------------------------Cuadrado---------------------
+    calibre_perfil = fields.Selection(string="Calibre", selection = [('10.0',10.0),('11.0',11.0),('12.0',12.0),
+                                                                 ('14.0',14.0),('16.0',16.0),('18.0',18.0),
+                                                                 ('20.0',20.0),('22.0',22.0)])
     # -----------------------------P.T.R.-----------------------
     ptr_calibre = fields.Selection(string="PTR",selection=[("125",0.125),("1875",0.1875),("25",0.25),("50",0.5),("10",10.0),("11",11.0),("09",9.0),("10",10.0),("11",11.0),("12",12.0),("13",13.0),("14",14.0)])
     ptr_seccion = fields.Selection(string="Seccion",selection=[('1x1','1.0 x 1.0'),('15x15','1.5 x 1.5'),('2x2','2.0 x 2.0'),('25x25','2.5 x 2.5'),('3x3','3.0 x 3.0'),('35x35','3.5 x 3.5'),('3x2','3.0 x 2.0'),('4x2','4.0 x 2.0'),
@@ -83,17 +89,21 @@ class Materiales(models.Model):
                                                                      ("seguridad","Seguridad"),("concreto","Concreto"),("elevador","Elevador")])
     tornillo_cabeza = fields.Selection(string="Cabeza",selection=[("plana","Plana"),("phillips","Phillips"),("torx","Estrella (Torx)"),("hexagonal","Hexagonal"),
                                                                    ("redonda","Redonda"),("avellanada","Avellanada"),("seguridad","Avellanada"),("cuadrada","Cuadrada"),
-                                                                   ("coche","Coche")])
+                                                                   ("coche","Coche"),("socket","Socket")])
     tornillo_material = fields.Selection(string="Material",selection=[("carbon","Acero al carbón"),("inoxidable","Inoxidable"),("laton","Latón"),("aluminio","Aluminio"),
                                                                       ("plastico","Plástico"),("galvanizado","Galvanizado"),("termicamente","Térmicamente")])
 
-    tornillo_diametro = fields.Selection(string="Diámetro",selection=[("025",0.25),("3125",0.3125),("375",0.375),("50",0.5),("625",0.625),("75",0.75),("875",0.875),("1",1.0),
-                                                                   ("1125",1.125),("125",1.25),("1375",1.375),("15",1.5),("1625",1.625),("175",1.75),("1875",1.875),("2",2.0),
-                                                                   ("225",2.25),("m2","M2"),("m3","M3"),("m4",1.5),("m5","M4"),("m6","M5"),("m8","M6"),("m10","M8"),
-                                                                   ("m12","M10"),("m16","M12")])
-    # -----------------------------Tuerca--------------------------
-    tornillo_paso = fields.Float(string="Paso")
+    tornillo_diametro = fields.Selection(string="Diámetro",selection=[("0.03125",0.03125),("00625",0.0625),("009375",0.09375),("0125",0.125),("15625",0.15625),("01875",0.1875),("021875",0.21875),
+                                                                      ("025",0.25),("028125",0.28125),("3125",0.3125),("34375",0.34375),("375",0.375),("040625",0.40625),("04375",0.4375),("046875",0.46875),
+                                                                      ("50",0.5),("053125",0.53125),("05625",0.5625),("059325",0.59325),("625",0.625),("065625",0.65625),("06875",0.6875),("071875",0.71875),
+                                                                      ("75",0.75),("078125",0.78125),("08125",0.8125),("84375",0.84375),("875",0.875),("090625",0.90625),("9375",0.9375),("096875",0.96875),
+                                                                      ("1",1.0),("1125",1.125),("125",1.25),("1375",1.375),("15",1.5),("1625",1.625),("m12","M10"),("m16","M12")])
+    tornillo_paso = fields.Selection(string="Paso", selection=[("4", 4.0),("5", 5.0),("6", 6.0),("7", 7.0),("8", 8.0),("9", 9.0),("10", 10.0),("11", 11.0),("12", 12.0),("14", 14.0),("16", 16.0),("18", 18.0),
+                                                                ("20", 20.0),("24", 24.0),("32", 32.0),("36", 36.0),("40", 40.0),("44", 44.0),("48", 48.0),("56", 56.0),("64", 64.0),("80", 80.0)])
     tornillo_longitud  = fields.Float(string="Longitud")
+    # -----------------------------Tuerca--------------------------
+    tuerca_tipo = fields.Selection(string="Tuerca",selection=[("normal","Normal"),("nylon","Seguridad Nylon"),("temperatura","Seguridad Temperatura"),("falda","Falda"),("contratuerca","Contratuerca"),("ciega","Ciega"),
+                                                              ("remachable","Remachable"),("remach","Remachable Hexagonal")])
     #---------------------------------------------Ruedas------------------------------------------------------------------------------------------Ranuradas Nylon AltaTemperatura
     descripcion_rueda = fields.Selection(string="Tipo",selection=[("giratorio","Giratoria"),("fijo","Fija")])
     material_rueda = fields.Selection(string="Material",selection=[("poliuretano","Poliuretano"),("performa","Performa"),("poliolefino","Poliolefino"),("maxim","Maxim"),("fenolicas","Fenolicas"),("hule","Hule"),("acero","Acero"),("transForma","TransForma"),("endura","Endura")])
@@ -105,7 +115,9 @@ class Materiales(models.Model):
       "seccion_perfil_cuadrado","calibre","largo_perfil","perfileria","seccion_perfil_rectangular",
       "descripcion_rueda","material_rueda","diametro_rueda","ancho_rueda","balero_rueda","tubo_cedula","tubo_diametro_30",
       "tubo_diametro_40","tubo_diametro_industrial","tubo_diametro_80","ptr_calibre","ptr_seccion","varilla_material","varilla_tipo",
-      "tornilleria","tornilleria_tornillo","tornillo_cabeza","tornillo_material","tornillo_diametro","tornillo_paso","tornillo_longitud","varilla_calibre")
+      "tornilleria","tornilleria_tornillo","tornillo_cabeza","tornillo_material","tornillo_diametro","tornillo_paso","tornillo_longitud","varilla_calibre",
+      "material_perfil","tuerca_tipo")
+
     def _onchange_especificaciones(self):
         selection_dict = dict(self._fields['campo_nombre'].selection)
         valor_nombre = selection_dict.get(self.campo_nombre)
@@ -137,7 +149,6 @@ class Materiales(models.Model):
 
     #Función para tratar las opciones de las lámina
     def lamina_func(self):
-            self.limpiar_campos("Lamina")
             selection_dict = dict(self._fields['material'].selection)
             valor_material = selection_dict.get(self.material)
 
@@ -178,15 +189,14 @@ class Materiales(models.Model):
             return (nombre,medida)
     #Función para tratar las opciones de perfilería
     def perfil_func(self):
-            self.limpiar_campos("Perfileria")
             selection_dict = dict(self._fields['perfileria'].selection)
             valor_perfileria = selection_dict.get(self.perfileria)
 
-            selection_dict = dict(self._fields['material'].selection)
-            valor_material = selection_dict.get(self.material)
+            selection_dict = dict(self._fields['material_perfil'].selection)
+            valor_material = selection_dict.get(self.material_perfil)
 
             selection_dict = dict(self._fields['calibre'].selection)
-            valor_calibre = selection_dict.get(self.calibre)
+            valor_calibre = selection_dict.get(self.calibre_perfil)
 
             nombre = ""
             medida = ""
@@ -238,7 +248,7 @@ class Materiales(models.Model):
                 selection_dict = dict(self._fields['ptr_seccion'].selection)
                 valor_ptr_seccion = selection_dict.get(self.ptr_seccion)
 
-                nombre = f"Perfil {valor_perfileria if valor_perfileria else ''} {valor_material if valor_material else ''}"
+                nombre = f"{valor_perfileria if valor_perfileria else ''} {valor_material if valor_material else ''}"
                 medida = f"{valor_ptr_seccion if valor_ptr_seccion else ''} @ {valor_ptr_calibre if valor_ptr_calibre else ''},{self.largo_perfil}"
             if valor_perfileria == 'Varilla' :
                 selection_dict = dict(self._fields['varilla_material'].selection)
@@ -256,7 +266,6 @@ class Materiales(models.Model):
             return (nombre,medida)
     #Función para tratar las opciones de las ruedas
     def ruedas_func(self):
-        self.limpiar_campos("Ruedas")
         selection_dict = dict(self._fields['descripcion_rueda'].selection)
         valor_descripcion_rueda = selection_dict.get(self.descripcion_rueda)
         selection_dict = dict(self._fields['material_rueda'].selection)
@@ -272,13 +281,9 @@ class Materiales(models.Model):
         medida = f"{valor_diametro_rueda if valor_diametro_rueda else ''} x {valor_ancho_rueda if valor_ancho_rueda else ''}"
         return (nombre,medida)
     def tornilleria_func(self):
-        self.limpiar_campos("Ruedas")
         selection_dict = dict(self._fields['tornilleria'].selection)
         valor_tornilleria = selection_dict.get(self.tornilleria)
-        selection_dict = dict(self._fields['tornilleria_tornillo'].selection)
-        valor_tornilleria_tornillo = selection_dict.get(self.tornilleria_tornillo)
-        selection_dict = dict(self._fields['tornillo_cabeza'].selection)
-        valor_tornillo_cabeza = selection_dict.get(self.tornillo_cabeza)
+
         selection_dict = dict(self._fields['tornillo_material'].selection)
         valor_tornillo_material = selection_dict.get(self.tornillo_material)
         selection_dict = dict(self._fields['tornillo_diametro'].selection)
@@ -287,8 +292,17 @@ class Materiales(models.Model):
         nombre = ""
         medida = ""
         if valor_tornilleria=="Tornillo":
+            selection_dict = dict(self._fields['tornilleria_tornillo'].selection)
+            valor_tornilleria_tornillo = selection_dict.get(self.tornilleria_tornillo)
+            selection_dict = dict(self._fields['tornillo_cabeza'].selection)
+            valor_tornillo_cabeza = selection_dict.get(self.tornillo_cabeza)
             nombre = f"{valor_tornilleria if valor_tornilleria else ''} de {valor_tornilleria_tornillo if valor_tornilleria_tornillo else ''} {valor_tornillo_cabeza if valor_tornillo_cabeza else ''} {valor_tornillo_material if valor_tornillo_material else ''}"
             medida = f"{valor_tornillo_diametro if valor_tornillo_diametro else ''} - {self.tornillo_paso if self.tornillo_paso else ''} x {self.tornillo_longitud if self.tornillo_longitud else ''}"
+        if valor_tornilleria=="Tuerca":
+            selection_dict = dict(self._fields['tuerca_tipo'].selection)
+            valor_tornilleria_tornillo = selection_dict.get(self.tuerca_tipo)
+            nombre = f"{valor_tornilleria if valor_tornilleria else ''} {valor_tornillo_material if valor_tornillo_material else ''} {valor_tornilleria_tornillo if valor_tornilleria_tornillo else ''}"
+            medida = f"Ø {valor_tornillo_diametro if valor_tornillo_diametro else ''} - {self.tornillo_paso if self.tornillo_paso else ''}"
         return (nombre,medida)
 
     def selection_value(self):
@@ -296,9 +310,19 @@ class Materiales(models.Model):
         valor_pintura = selection_dict.get(self.pintura_tipo)
         cantidad = "Litros" if self.pintura_tipo =="liquida" else "Kilos" if self.pintura_tipo == "polvo" else "Latas"
 
-    def limpiar_campos(self,material):
-        if material == 'Lamina':
+    def action_limpiar(self):
+            self.tornilleria = ""
+            self.tornillo_material = ""
+            self.tornillo_paso = ""
+            self.tornillo_cabeza = ""
+            self.tornillo_diametro = ""
+            self.tornillo_longitud = ""
+            self.tornilleria_tornillo = ""
+            self.calibre_perfil = ""
+            self.campo_nombre = ""
+            self.material = ""
             self.largo_perfil= ""
+            self.material_perfil= ""
             self.seccion_perfil_cuadrado= ""
             self.seccion_perfil_rectangular= ""
             self.perfileria= ""
@@ -314,92 +338,15 @@ class Materiales(models.Model):
             self.diametro_rueda= ""
             self.ancho_rueda= ""
             self.balero_rueda = ""
-        if material == 'Perfileria':
-            self.calibre
-            self.material
-            self.tipo_carbon
-            self.tipo_inoxidable
-            self.tipo_aluminio
-            self.acabado_carbon
-            self.acabado_inoxidable
-            self.acabado_aluminio
-            self.descripcion_rueda
-            self.material_rueda
-            self.diametro_rueda
-            self.ancho_rueda
-            self.balero_rueda
-        if material == 'Ruedas':
-            self.calibre
-            self.material
-            self.tipo_carbon
-            self.tipo_inoxidable
-            self.tipo_aluminio
-            self.acabado_carbon
-            self.acabado_inoxidable
-            self.acabado_aluminio
-            self.largo_perfil
-            self.seccion_perfil_cuadrado
-            self.seccion_perfil_rectangular
-            self.perfileria
-            self.tubo_cedula
-            self.tubo_diametro_30
-            self.tubo_diametro_40
-            self.tubo_diametro_80
-            self.tubo_diametro_industrial
-            self.ptr_calibre
-            self.ptr_seccion
-
-            # calibre
-            # material
-            # tipo_carbon
-            # tipo_inoxidable
-            # tipo_aluminio
-            # acabado_carbon
-            # acabado_inoxidable
-            # acabado_aluminio
-            # largo_perfil
-            # seccion_perfil_cuadrado
-            # seccion_perfil_rectangular
-            # perfileria
-            # tubo_cedula
-            # tubo_diametro_30
-            # tubo_diametro_40
-            # tubo_diametro_80
-            # tubo_diametro_industrial
-            # ptr_calibre
-            # ptr_seccion
-            # descripcion_rueda
-            # material_rueda
-            # diametro_rueda
-            # ancho_rueda
-            # balero_rueda
+            self.calibre = ""
+            self.tipo_carbon = ""
+            self.tipo_inoxidable = ""
+            self.tipo_aluminio = ""
+            self.acabado_carbon = ""
+            self.acabado_inoxidable = ""
+            self.acabado_aluminio = ""
 
 
-
-    def get_view(self, view_id=None, view_type='form', **options):#Carga los items de todos los módulos de Almacén en un solo módulo de diseño
-        res = super(Materiales,self).get_view(view_id, view_type,**options)
-        # get_almacen = self.env['dtm.diseno.almacen'].search([])
-        # modelos = ['dtm.materiales',"dtm.materiales.angulos","dtm.materiales.solera","dtm.materiales.rodamientos","dtm.materiales.pintura","dtm.materiales.perfiles","dtm.materiales.otros","dtm.materiales.maquinados","dtm.materiales.canal","dtm.materiales.tornillos","dtm.materiales.tubos","dtm.materiales.varilla"]
-        # for item in get_almacen:
-        #     item.write({
-        #         "cantidad":0,
-        #         "apartado":0,
-        #         "disponible":0,
-        #     })
-        #     for modelo in modelos:
-        #         get_lamina = self.env[modelo].search([("codigo","=",item.id)])
-        #         if get_lamina:
-        #             item.write({
-        #                 "cantidad": get_lamina.cantidad,
-        #                 "apartado": get_lamina.apartado,
-        #                 "disponible": get_lamina.disponible,
-        #             })
-        #
-        # for find_id in range(1,self.env['dtm.diseno.almacen'].search([], order='id desc', limit=1).id+2):
-        #         if not self.env['dtm.diseno.almacen'].search([("id","=",find_id)]):
-        #             self.env.cr.execute(f"SELECT setval('dtm_diseno_almacen_id_seq', {find_id}, false);")
-        #             break
-        return res
 
     @api.depends("cantidad")
     #-----------------------------Saca la cantidad del material que hay disponible---------------
