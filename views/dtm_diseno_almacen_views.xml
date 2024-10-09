@@ -309,7 +309,7 @@
                                             </div>
                                             <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('tornilleria', '!=', 'tornillo')]}" >
                                                 <p>Diámetro</p>
-                                                <field name="tornillo_diametro"/>
+                                                <field name="tornillo_diametro_estandar"/>
                                             </div>
                                             <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('tornilleria', '!=', 'tornillo')]}" >
                                                 <p>Paso</p>
@@ -330,12 +330,50 @@
                                             </div>
                                             <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('tornilleria', '!=', 'tuerca')]}" >
                                                 <p>Diámetro</p>
-                                                <field name="tornillo_diametro"/>
+                                                <field name="tornillo_diametro_estandar"/>
                                             </div>
                                             <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('tornilleria', '!=', 'tuerca')]}" >
                                                 <p>Paso</p>
                                                 <field name="tornillo_paso"/>
                                             </div>
+<!--                            Barras-->
+                                            <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('campo_nombre', '!=', 'barras')]}">
+                                                <p>Material</p>
+                                                <field name="material"/>
+                                            </div>
+                                            <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('campo_nombre', '!=', 'barras')]}">
+                                                <p>Tipo</p>
+                                                <field name="barras"/>
+                                            </div>
+                                            <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('campo_nombre', '!=', 'barras')]}">
+                                                <p>Aleación</p>
+                                                <field name="barra_tipo"/>
+                                            </div>
+                                    <!--Redonda-->
+
+                                            <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('barras', '!=', 'redonda')]}" >
+                                                <p>Diámetro</p>
+                                                <field name="barra_diametro"/>
+                                            </div>
+                                            <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('barras', '!=', 'redonda')]}" >
+                                                <p>Largo</p>
+                                                <field name="barra_largo"/>
+                                            </div>
+
+                                    <!--Cuadrada-->
+                                            <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('barras', '!=', 'cuadrada')]}" >
+                                                <p>Alto</p>
+                                                <field name="barra_alto"/>
+                                            </div>
+                                            <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('barras', '!=', 'cuadrada')]}" >
+                                                <p>Ancho</p>
+                                                <field name="ancho"/>
+                                            </div>
+                                            <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('barras', '!=', 'cuadrada')]}" >
+                                                <p>Largo</p>
+                                                <field name="barra_largo"/>
+                                            </div>
+
 
 
                             <!--Ruedas-->
