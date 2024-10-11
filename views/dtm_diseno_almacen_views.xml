@@ -13,7 +13,7 @@
                         <field name="cantidad"></field>
                         <field name="apartado"></field>
                         <field name="disponible"></field>
-                        <field name="caracteristicas"></field>
+                        <field name="localizacion"></field>
                         <field name="notas"/>
                     </tree>
                 </field>
@@ -218,8 +218,12 @@
                                             </div>
                             <!--P.T.R-->
                                             <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('perfileria', '!=','ptr')]}" >
-                                                <p>Cedula 30</p>
-                                                <field name="tubo_diametro_30"/>
+                                                <p>Calibre</p>
+                                                <field name="ptr_calibre"/>
+                                            </div>
+                                            <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('perfileria', '!=','ptr')]}" >
+                                                <p>Sección</p>
+                                                <field name="ptr_seccion"/>
                                             </div>
                                             <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('perfileria', '!=','ptr')]}" >
                                                 <p>Largo</p>
@@ -307,13 +311,17 @@
                                                 <p>Material</p>
                                                 <field name="tornillo_material"/>
                                             </div>
-                                            <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('tornilleria', '!=', 'tornillo')]}" >
+                                            <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('tornilleria', '!=', 'tornillo')]}">
+                                                <p>Estandar/Milimétrico</p>
+                                                <field name="tornillo_tipo"/>
+                                            </div>
+                                            <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('tornillo_tipo', '!=', 'estandar')]}" >
                                                 <p>Diámetro</p>
                                                 <field name="tornillo_diametro_estandar"/>
                                             </div>
-                                            <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('tornilleria', '!=', 'tornillo')]}" >
+                                            <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('tornillo_tipo', '!=', 'milimetrico')]}" >
                                                 <p>Paso</p>
-                                                <field name="tornillo_paso"/>
+                                                <field name="tornillo_diametro_milimetrico"/>
                                             </div>
                                             <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('tornilleria', '!=', 'tornillo')]}" >
                                                 <p>Longitud</p>
@@ -328,13 +336,17 @@
                                                 <p>Tipo</p>
                                                 <field name="tuerca_tipo"/>
                                             </div>
-                                            <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('tornilleria', '!=', 'tuerca')]}" >
+                                             <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('tornilleria', '!=', 'tuerca')]}">
+                                                <p>Estandar/Milimétrico</p>
+                                                <field name="tornillo_tipo"/>
+                                            </div>
+                                            <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('tornillo_tipo', '!=', 'estandar')]}" >
                                                 <p>Diámetro</p>
                                                 <field name="tornillo_diametro_estandar"/>
                                             </div>
-                                            <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('tornilleria', '!=', 'tuerca')]}" >
+                                            <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('tornillo_tipo', '!=', 'milimetrico')]}" >
                                                 <p>Paso</p>
-                                                <field name="tornillo_paso"/>
+                                                <field name="tornillo_diametro_milimetrico"/>
                                             </div>
 <!--                            Barras-->
                                             <div style="display: flex;flex-direction: column;" attrs="{'invisible': [('campo_nombre', '!=', 'barras')]}">

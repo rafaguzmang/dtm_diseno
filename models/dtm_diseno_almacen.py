@@ -15,6 +15,7 @@ class Materiales(models.Model):
     caracteristicas = fields.Char(string="Caracteristicas")
     notas = fields.Text(string="Notas")
     area = fields.Float(string="Área/Largo")
+    localizacion = fields.Char(string="Localización")
 
     # --------------------------------------Cantidades, datos para operaciones --------------------------------
     cantidad = fields.Integer(string="Stock", default=0)
@@ -74,7 +75,7 @@ class Materiales(models.Model):
                                                                  ('20.0',20.0),('22.0',22.0)])
     # -----------------------------P.T.R.-----------------------
     ptr_calibre = fields.Selection(string="PTR",selection=[("125",0.125),("1875",0.1875),("25",0.25),("50",0.5),("10",10.0),("11",11.0),("09",9.0),("10",10.0),("11",11.0),("12",12.0),("13",13.0),("14",14.0)])
-    ptr_seccion = fields.Selection(string="Seccion",selection=[('1x1','1.0 x 1.0'),('15x15','1.5 x 1.5'),('2x2','2.0 x 2.0'),('25x25','2.5 x 2.5'),('3x3','3.0 x 3.0'),('35x35','3.5 x 3.5'),('3x2','3.0 x 2.0'),('4x2','4.0 x 2.0'),
+    ptr_seccion = fields.Selection(string="Seccion",selection=[('1x1','1.0 x 1.0'),('15x15','1.5 x 1.5'),('2x1','2.0 x 1.0'),('2x2','2.0 x 2.0'),('25x25','2.5 x 2.5'),('3x3','3.0 x 3.0'),('35x35','3.5 x 3.5'),('3x2','3.0 x 2.0'),('4x2','4.0 x 2.0'),
                                                             ('4x3','4.0 x 3.0'),('4x4','4.0 x 4.0'),('5x5','5.0 x 5.0'),('6x4','6.0 x 4.0')])
     # -----------------------------Varilla-----------------------
     varilla_material = fields.Selection(string="Material",selection=[("redonda","Redonda"),("hexagonal","Hexagonal")])
@@ -85,7 +86,7 @@ class Materiales(models.Model):
     # -----------------------------Tornilleria-----------------------
     tornilleria = fields.Selection(string="Tornillería",selection=[("tornillo","Tornillo"),("tuerca","Tuerca"),("arandela","Arandela"),("varilla","Varilla Roscada")])
     # -----------------------------Tornillo--------------------------
-    tornilleria_tornillo = fields.Selection(string="Tipo",selection=[("estandar","Estandar"),("maquina","Máquina"),("madera","Madera"),("autorroscante","Autorroscante"),("anclaje","Anclaje"),
+    tornilleria_tornillo = fields.Selection(string="Tipo",selection=[("maquina","Máquina"),("madera","Madera"),("autorroscante","Autorroscante"),("anclaje","Anclaje"),
                                                                      ("seguridad","Seguridad"),("concreto","Concreto"),("elevador","Elevador")])
     tornillo_cabeza = fields.Selection(string="Cabeza",selection=[("plana","Plana"),("phillips","Phillips"),("torx","Estrella (Torx)"),("hexagonal","Hexagonal"),
                                                                    ("redonda","Redonda"),("avellanada","Avellanada"),("seguridad","Avellanada"),("cuadrada","Cuadrada"),
@@ -93,17 +94,31 @@ class Materiales(models.Model):
     tornillo_material = fields.Selection(string="Material",selection=[("carbon","Acero al carbón"),("inoxidable","Inoxidable"),("laton","Latón"),("aluminio","Aluminio"),
                                                                       ("plastico","Plástico"),("galvanizado","Galvanizado"),("termicamente","Térmicamente")])
 
-    tornillo_diametro_estandar = fields.Selection(string="Diámetro - Paso",selection=[("0.03125",0.03125),("00625",0.0625),("009375",0.09375),("0125",0.125),("15625",0.15625),("01875",0.1875),("021875",0.21875),
-                                                                      ("025",0.25),("028125",0.28125),("3125",0.3125),("34375",0.34375),("375",0.375),("040625",0.40625),("04375",0.4375),("046875",0.46875),
-                                                                      ("50",0.5),("053125",0.53125),("05625",0.5625),("059325",0.59325),("625",0.625),("065625",0.65625),("06875",0.6875),("071875",0.71875),
-                                                                      ("75",0.75),("078125",0.78125),("08125",0.8125),("84375",0.84375),("875",0.875),("090625",0.90625),("9375",0.9375),("096875",0.96875),
-                                                                      ("1",1.0),("1125",1.125),("125",1.25),("1375",1.375),("15",1.5),("1625",1.625),("m12","M10"),("m16","M12")])
-    tornillo_paso = fields.Selection(string="Paso", selection=[("4", 4.0),("5", 5.0),("6", 6.0),("7", 7.0),("8", 8.0),("9", 9.0),("10", 10.0),("11", 11.0),("12", 12.0),("14", 14.0),("16", 16.0),("18", 18.0),
-                                                                ("20", 20.0),("24", 24.0),("32", 32.0),("36", 36.0),("40", 40.0),("44", 44.0),("48", 48.0),("56", 56.0),("64", 64.0),("80", 80.0)])
+    tornillo_tipo = fields.Selection(string="Tipo", selection=[("estandar","Estandar"),("milimetrico","Milimético")])
+    tornillo_diametro_estandar = fields.Selection(string="Diámetro - Paso",selection=[("4-40","4.0 - 40.0"),("6-32","6.0 - 32.0"),("8-32","8.0 - 32.0"),("10-24","10.0 - 24.0"),("10-32","10.0 - 32.0"),
+                                                                      ("025-20","0.25 - 20.0"),("025-28","0.25 - 28.0"),("03125-18","0.3125 - 18.0"),("03125-24","0.3125 - 24.0"),("0375-16","0.375 - 16.0"),
+                                                                      ("0375-24","0.375 - 24.0"),("03475-14","0.4375 - 14.0"),("03475-20","0.4375 - 20.0"),("05-13","0.5 - 13.0"),("05-20","0.5 - 20.0"),
+                                                                      ("05625-12","0.5625 - 12.0"),("05625-18","0.5625 - 18.0"),("0625-11","0.625 - 11.0"),("0625-18","0.625 - 18.0"),("075-18","0.75 - 10.0"),
+                                                                      ("075-16","0.75 - 16.0"),("0875-9","0.875 - 9.0"),("0875-14","0.875 - 14.0"),("0875-14","0.875 - 14.0"),("1-8","1.0 - 8.0"),("1-12","1 - 12.0")
+                                                                      ])
+    tornillo_diametro_milimetrico = fields.Selection(string="Diámetro - Paso",selection=[("m2","M2 - 0.4"),("m3","M3 - 0.5"),("m4","M4 - 0.7"),("m5","M5 - 0.8"),("m6","M6 - 1.0"),("m7","M7 - 1.0"),("m8","M8 - 1.25"),
+                                                                                         ("m9","M9 - 1.25"),("m10","M10 - 1.5"),("m11","M11 - 1.5"),("m12","M12 - 1.75")
+                                                                      ])
+
     tornillo_longitud  = fields.Float(string="Longitud")
     # -----------------------------Tuerca--------------------------
     tuerca_tipo = fields.Selection(string="Tuerca",selection=[("normal","Normal"),("nylon","Seguridad Nylon"),("temperatura","Seguridad Temperatura"),("falda","Falda"),("contratuerca","Contratuerca"),("ciega","Ciega"),
                                                               ("remachable","Remachable"),("remach","Remachable Hexagonal")])
+    tornillo_tipo = fields.Selection(string="Tipo", selection=[("estandar","Estandar"),("milimetrico","Milimético")])
+    tornillo_diametro_estandar = fields.Selection(string="Diámetro - Paso",selection=[("4-40","4.0 - 40.0"),("6-32","6.0 - 32.0"),("8-32","8.0 - 32.0"),("10-24","10.0 - 24.0"),("10-32","10.0 - 32.0"),
+                                                                      ("025-20","0.25 - 20.0"),("025-28","0.25 - 28.0"),("03125-18","0.3125 - 18.0"),("03125-24","0.3125 - 24.0"),("0375-16","0.375 - 16.0"),
+                                                                      ("0375-24","0.375 - 24.0"),("03475-14","0.4375 - 14.0"),("03475-20","0.4375 - 20.0"),("05-13","0.5 - 13.0"),("05-20","0.5 - 20.0"),
+                                                                      ("05625-12","0.5625 - 12.0"),("05625-18","0.5625 - 18.0"),("0625-11","0.625 - 11.0"),("0625-18","0.625 - 18.0"),("075-18","0.75 - 10.0"),
+                                                                      ("075-16","0.75 - 16.0"),("0875-9","0.875 - 9.0"),("0875-14","0.875 - 14.0"),("0875-14","0.875 - 14.0"),("1-8","1.0 - 8.0"),("1-12","1 - 12.0")
+                                                                      ])
+    tornillo_diametro_milimetrico = fields.Selection(string="Diámetro - Paso",selection=[("m2","M2 - 0.4"),("m3","M3 - 0.5"),("m4","M4 - 0.7"),("m5","M5 - 0.8"),("m6","M6 - 1.0"),("m7","M7 - 1.0"),("m8","M8 - 1.25"),
+                                                                                         ("m9","M9 - 1.25"),("m10","M10 - 1.5"),("m11","M11 - 1.5"),("m12","M12 - 1.75")
+                                                                      ])
     #---------------------------------------------Ruedas------------------------------------------------------------------------------------------Ranuradas Nylon AltaTemperatura
     descripcion_rueda = fields.Selection(string="Tipo",selection=[("giratorio","Giratoria"),("fijo","Fija")])
     material_rueda = fields.Selection(string="Material",selection=[("poliuretano","Poliuretano"),("performa","Performa"),("poliolefino","Poliolefino"),("maxim","Maxim"),("fenolicas","Fenolicas"),("hule","Hule"),("acero","Acero"),("transForma","TransForma"),("endura","Endura")])
@@ -117,19 +132,13 @@ class Materiales(models.Model):
     barra_alto = fields.Float(string="Alto")
     barra_largo = fields.Float(string="Largo")
 
-
     @api.onchange("campo_nombre","material","tipo_carbon","tipo_inoxidable","tipo_aluminio",
       "acabado_carbon","acabado_inoxidable","acabado_aluminio","largo","ancho","calibre","antiderrapante",
       "seccion_perfil_cuadrado","calibre","largo_perfil","perfileria","seccion_perfil_rectangular",
       "descripcion_rueda","material_rueda","diametro_rueda","ancho_rueda","balero_rueda","tubo_cedula","tubo_diametro_30",
       "tubo_diametro_40","tubo_diametro_industrial","tubo_diametro_80","ptr_calibre","ptr_seccion","varilla_material","varilla_tipo",
-      "tornilleria","tornilleria_tornillo","tornillo_cabeza","tornillo_material","tornillo_diametro","tornillo_paso","tornillo_longitud","varilla_calibre",
-      "material_perfil","tuerca_tipo","barras","barra_tipo","barra_diametro","barra_alto","barra_largo")
-
-
-
-
-
+      "tornilleria","tornilleria_tornillo","tornillo_cabeza","tornillo_material","tornillo_diametro_estandar","tornillo_longitud","varilla_calibre",
+      "material_perfil","tuerca_tipo","barras","barra_tipo","barra_diametro","barra_alto","barra_largo","tornillo_diametro_estandar","tornillo_diametro_milimetrico")
     def _onchange_especificaciones(self):
         selection_dict = dict(self._fields['campo_nombre'].selection)
         valor_nombre = selection_dict.get(self.campo_nombre)
@@ -302,8 +311,12 @@ class Materiales(models.Model):
 
         selection_dict = dict(self._fields['tornillo_material'].selection)
         valor_tornillo_material = selection_dict.get(self.tornillo_material)
+        selection_dict = dict(self._fields['tornillo_tipo'].selection)
+        valor_tornillo_tipo = selection_dict.get(self.tornillo_tipo)
         selection_dict = dict(self._fields['tornillo_diametro_estandar'].selection)
         valor_tornillo_diametro_estandar = selection_dict.get(self.tornillo_diametro_estandar)
+        selection_dict = dict(self._fields['tornillo_diametro_milimetrico'].selection)
+        valor_tornillo_diametro_milimetrico = selection_dict.get(self.tornillo_diametro_milimetrico)
 
         nombre = ""
         medida = ""
@@ -313,12 +326,18 @@ class Materiales(models.Model):
             selection_dict = dict(self._fields['tornillo_cabeza'].selection)
             valor_tornillo_cabeza = selection_dict.get(self.tornillo_cabeza)
             nombre = f"{valor_tornilleria if valor_tornilleria else ''} de {valor_tornilleria_tornillo if valor_tornilleria_tornillo else ''} {valor_tornillo_cabeza if valor_tornillo_cabeza else ''} {valor_tornillo_material if valor_tornillo_material else ''}"
-            medida = f"{valor_tornillo_diametro_estandar if valor_tornillo_diametro_estandar else ''} - {self.tornillo_paso if self.tornillo_paso else ''} x {self.tornillo_longitud if self.tornillo_longitud else ''}"
+            if valor_tornillo_tipo == "Estandar":
+                medida = f"Ø {valor_tornillo_diametro_estandar if valor_tornillo_diametro_estandar else ''} x {self.tornillo_longitud if self.tornillo_longitud else ''}"
+            else:
+                medida = f"Ø {valor_tornillo_diametro_milimetrico if valor_tornillo_diametro_milimetrico else ''} x {self.tornillo_longitud if self.tornillo_longitud else ''}"
         if valor_tornilleria=="Tuerca":
             selection_dict = dict(self._fields['tuerca_tipo'].selection)
             valor_tornilleria_tornillo = selection_dict.get(self.tuerca_tipo)
             nombre = f"{valor_tornilleria if valor_tornilleria else ''} {valor_tornillo_material if valor_tornillo_material else ''} {valor_tornilleria_tornillo if valor_tornilleria_tornillo else ''}"
-            medida = f"Ø {valor_tornillo_diametro_estandar if valor_tornillo_diametro_estandar else ''} - {self.tornillo_paso if self.tornillo_paso else ''}"
+            if valor_tornillo_tipo == "Estandar":
+                medida = f"Ø {valor_tornillo_diametro_estandar if valor_tornillo_diametro_estandar else ''}"
+            else:
+                medida = f"Ø {valor_tornillo_diametro_milimetrico if valor_tornillo_diametro_milimetrico else ''}"
         return (nombre,medida)
 
     def barras_func(self):
@@ -346,6 +365,8 @@ class Materiales(models.Model):
         cantidad = "Litros" if self.pintura_tipo =="liquida" else "Kilos" if self.pintura_tipo == "polvo" else "Latas"
 
     def action_limpiar(self):
+            self.tornillo_diametro_milimetrico = ""
+            self.tornillo_diametro_milimetrico = ""
             self.barras = ""
             self.barra_tipo = ""
             self.barra_diametro = ""
@@ -353,9 +374,9 @@ class Materiales(models.Model):
             self.barra_largo = ""
             self.tornilleria = ""
             self.tornillo_material = ""
-            self.tornillo_paso = ""
             self.tornillo_cabeza = ""
-            self.tornillo_diametro = ""
+            self.tornillo_tipo = ""
+            self.tornillo_diametro_estandar = ""
             self.tornillo_longitud = ""
             self.tornilleria_tornillo = ""
             self.calibre_perfil = ""
