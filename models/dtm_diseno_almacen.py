@@ -88,7 +88,7 @@ class Materiales(models.Model):
     # -----------------------------Tornillo--------------------------
     tornilleria_tornillo = fields.Selection(string="Tipo",selection=[("maquina","Máquina"),("madera","Madera"),("autorroscante","Autorroscante"),("anclaje","Anclaje"),
                                                                      ("seguridad","Seguridad"),("concreto","Concreto"),("elevador","Elevador")])
-    tornillo_cabeza = fields.Selection(string="Cabeza",selection=[("plana","Plana"),("phillips","Phillips"),("torx","Estrella (Torx)"),("hexagonal","Hexagonal"),
+    tornillo_cabeza = fields.Selection(string="Cabeza",selection=[("boton","Botón"),("plana","Plana"),("phillips","Phillips"),("torx","Estrella (Torx)"),("hexagonal","Hexagonal"),
                                                                    ("redonda","Redonda"),("avellanada","Avellanada"),("seguridad","Avellanada"),("cuadrada","Cuadrada"),
                                                                    ("coche","Coche"),("socket","Socket")])
     tornillo_material = fields.Selection(string="Material",selection=[("carbon","Acero al carbón"),("inoxidable","Inoxidable"),("laton","Latón"),("aluminio","Aluminio"),

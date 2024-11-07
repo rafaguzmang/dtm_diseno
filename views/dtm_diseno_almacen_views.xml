@@ -27,7 +27,7 @@
                 <field name="context">{'search_default_lamina_completa': True}</field>
             </record>
 
-           <record id = "dtm_diseno_almace_search" model="ir.ui.view">
+            <record id = "dtm_diseno_almace_search" model="ir.ui.view">
                <field name="name">dtm.diseno.almacen.search</field>
                <field name="model">dtm.diseno.almacen</field>
                <field name ="arch" type="xml">
