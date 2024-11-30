@@ -1,5 +1,7 @@
 {
     "name":"Diseño",
+    'installable': True,
+     'application': False,
     "data":[
         #Security
         'security/ir.model.access.csv',
