@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+         <record id="dtm_diseno_consumibles_action" model="ir.actions.act_window">
+            <field name="name">Consumibles</field>
+            <field name="res_model">dtm.diseno.consumibles</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <record id="dtm_diseno_consumibles_tree" model="ir.ui.view">
+            <field name="name">dtm_diseno_corte_tree</field>
+            <field name="model">dtm.diseno.consumibles</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="codigo"></field>
+                    <field name="nombre"></field>
+                    <field name="caracteristicas"></field>
+                    <field name="cantidad" options='{"type": "number"}'></field>
+                    <field name="minimo" options='{"type": "number"}'       ></field>
+                    <field name="localizacion"></field>
+                    <field name="entregado"></field>
+                    <field name="recibe"></field>
+                    <field name="notas"></field>
+                </tree>
+            </field>
+        </record>
+<!--        <menuitem id="dtm_diseno_consumibles_menu" action="dtm_diseno_consumibles_action" />-->
+
+    </data>
+</odoo>
