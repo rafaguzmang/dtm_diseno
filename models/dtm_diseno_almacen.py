@@ -16,6 +16,7 @@ class Materiales(models.Model):
     notas = fields.Text(string="Notas")
     area = fields.Float(string="Área/Largo")
     localizacion = fields.Char(string="Localización")
+    minimo = fields.Integer(string="Mínimo")
 
     # --------------------------------------Cantidades, datos para operaciones --------------------------------
     cantidad = fields.Integer(string="Stock", default=0)
