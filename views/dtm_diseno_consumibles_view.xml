@@ -14,6 +14,7 @@
                <search>
                     <field name="codigo"></field>
                     <field name="nombre"></field>
+                    <field name="fecha"></field>
                     <field name="cantidad" options='{"type": "number"}'></field>
 
                </search>
@@ -25,6 +26,7 @@
             <field name="model">dtm.diseno.consumibles</field>
             <field name="arch" type="xml">
                 <tree editable="bottom">
+                    <field name="fecha"></field>
                     <field name="codigo"></field>
                     <field name="nombre"></field>
                     <field name="cantidad" options='{"type": "number"}'></field>
