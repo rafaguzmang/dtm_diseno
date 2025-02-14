@@ -1,6 +1,7 @@
 id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
 access_dtm_diseno_almacen,access.dtm.diseno.almacen,model_dtm_diseno_almacen,base.group_user,1,1,1,1
 access_dtm_diseno_consumibles,access.dtm.diseno.consumibles,model_dtm_diseno_consumibles,base.group_user,1,1,1,1
+access_dtm_herramientas,access.dtm.herramientas,model_dtm_herramientas,base.group_user,1,1,1,1
 
 
 

@@ -10,8 +10,8 @@ class Materiales(models.Model):
     _rec_name = "nombre"
 
     # -------------------------------------Datos del material -------------------------------------------------
-    nombre = fields.Char(string="Nombre", readonly=True)
-    medida = fields.Char(string="Medidas", readonly=True)
+    nombre = fields.Char(string="Nombre", readonly=False)
+    medida = fields.Char(string="Medidas", readonly=False)
     caracteristicas = fields.Selection(string="Tipo",selection=[('material','Material'),('consumible','Consumible'),('herramienta','Herramienta')])
     notas = fields.Text(string="Notas")
     area = fields.Float(string="Área/Largo")

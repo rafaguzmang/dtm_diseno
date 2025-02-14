@@ -9,6 +9,7 @@
         #Views
         'views/dtm_diseno_almacen_views.xml',
         'views/dtm_diseno_consumibles_view.xml',
+        'views/dtm_herramienta_view.xml',
         #Menú
         'views/menu_item.xml'
 
