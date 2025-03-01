@@ -12,7 +12,7 @@ class Materiales(models.Model):
     # -------------------------------------Datos del material -------------------------------------------------
     nombre = fields.Char(string="Nombre", readonly=False)
     medida = fields.Char(string="Medidas", readonly=False)
-    caracteristicas = fields.Selection(string="Tipo",selection=[('material','Material'),('consumible','Consumible'),('herramienta','Herramienta')])
+    caracteristicas = fields.Selection(string="Tipo",selection=[('material','Material'),('consumible','Consumible'),('herramienta','Herramienta'),('equipo','Equipo')])
     notas = fields.Text(string="Notas")
     area = fields.Float(string="Área/Largo")
     localizacion = fields.Char(string="Localización")
@@ -89,7 +89,7 @@ class Materiales(models.Model):
     # -----------------------------Tornillo--------------------------
     tornilleria_tornillo = fields.Selection(string="Tipo",selection=[("maquina","Máquina"),("madera","Madera"),("autorroscante","Autorroscante"),("anclaje","Anclaje"),
                                                                      ("seguridad","Seguridad"),("concreto","Concreto"),("elevador","Elevador")])
-    tornillo_cabeza = fields.Selection(string="Cabeza",selection=[("boton","Botón"),("plana","Plana"),("phillips","Phillips"),("torx","Estrella (Torx)"),("hexagonal","Hexagonal"),
+    tornillo_cabeza = fields.Selection(string="Cabeza",selection=[("boton","Botón"),("conico","Cónico"),("phillips","Phillips"),("torx","Estrella (Torx)"),("hexagonal","Hexagonal"),
                                                                    ("redonda","Redonda"),("avellanada","Avellanada"),("seguridad","Avellanada"),("cuadrada","Cuadrada"),
                                                                    ("coche","Coche"),("socket","Socket")])
     tornillo_material = fields.Selection(string="Material",selection=[("carbon","Acero al carbón"),("inoxidable","Inoxidable"),("laton","Latón"),("aluminio","Aluminio"),
