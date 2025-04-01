@@ -13,6 +13,12 @@ class Materiales(models.Model):
     disponible = fields.Integer(string="Disponible", readonly=True)
     minimo = fields.Integer(string="Minimo", readonly=True)
 
+    def name_get(self):
+        res = []
+        for result in self:
+            res.append((result.id,f"{result.id} {result.nombre} {result.medida}"))
+        return res
+
 
     # Se usa esta función para traer todos los materiales del inventario
     def get_view(self, view_id=None, view_type='form', **options):
