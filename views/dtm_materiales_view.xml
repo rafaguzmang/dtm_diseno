@@ -12,6 +12,8 @@
                     <field name="cantidad"></field>
                     <field name="apartado"></field>
                     <field name="disponible"></field>
+                    <field name="minimo"></field>
+                    <field name="maximo"></field>
                 </tree>
             </field>
         </record>

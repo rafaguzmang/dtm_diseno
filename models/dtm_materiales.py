@@ -11,7 +11,8 @@ class Materiales(models.Model):
     cantidad = fields.Integer(string="Stock",readonly=True)
     apartado = fields.Integer(string="Proyectado", readonly=True)
     disponible = fields.Integer(string="Disponible", readonly=True)
-    minimo = fields.Integer(string="Minimo", readonly=True)
+    minimo = fields.Integer(string="Mínimo", readonly=True)
+    maximo = fields.Integer(string="Máximo", readonly=True)
 
     def name_get(self):
         res = []
@@ -32,7 +33,5 @@ class Materiales(models.Model):
             else:
                 materiales.create(
                     {'id': item.id, 'nombre': item.nombre, 'medida': item.medida if item.medida else '','cantidad': item.cantidad, 'apartado': item.apartado, 'disponible': item.disponible})
-
-
         return res
 
