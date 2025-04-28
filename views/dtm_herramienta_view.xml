@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="dtm_herramienta_accion" model="ir.actions.act_window">
+            <field name="name">Herramientas</field>
+            <field name="res_model">dtm.herramientas</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <record id="dtm_herramienta_tree" model="ir.ui.view">
+            <field name="name">dtm_herramienta_tree</field>
+            <field name="model">dtm.herramientas</field>
+            <field name="arch" type="xml">
+                <tree delete="false">
+                    <field name="id"></field>
+                    <field name="nombre"></field>
+                    <field name="cantidad"></field>
+                    <field name="responsable"></field>
+                    <field name="fecha_adquisicion"></field>
+                    <field name="notas"></field>
+                </tree>
+            </field>
+        </record>
+<!--        <menuitem id="menu_dtm_herramientas"  action="dtm_diseno.dtm_herramienta_accion" />-->
+
+    </data>
+</odoo>

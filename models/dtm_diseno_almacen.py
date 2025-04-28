@@ -12,10 +12,22 @@ class Materiales(models.Model):
     # -------------------------------------Datos del material -------------------------------------------------
     nombre = fields.Char(string="Nombre", readonly=False)
     medida = fields.Char(string="Medidas", readonly=False)
-    caracteristicas = fields.Char(string="Caracteristicas")
+    caracteristicas = fields.Selection(string="Tipo",selection=[('material','Material'),('consumible','Consumible'),('herramienta','Herramienta'),('equipo','Equipo')])
     notas = fields.Text(string="Notas")
     area = fields.Float(string="Área/Largo")
     localizacion = fields.Char(string="Localización")
+    minimo = fields.Integer(string="Mínimo")
+
+    def get_view(self, view_id=None, view_type='form', **options):
+        res = super(Materiales,self).get_view(view_id, view_type,**options)
+
+        for find_id in range(1, self.env['dtm.diseno.almacen'].search([], order='id desc', limit=1).id + 1):
+            if not self.env['dtm.diseno.almacen'].search([("id", "=", find_id)]):
+                self.env.cr.execute(f"SELECT setval('dtm_diseno_almacen_id_seq', {find_id}, false);")
+                break
+        return res
+
+
 
     # --------------------------------------Cantidades, datos para operaciones --------------------------------
     cantidad = fields.Integer(string="Stock", default=0)
@@ -88,7 +100,7 @@ class Materiales(models.Model):
     # -----------------------------Tornillo--------------------------
     tornilleria_tornillo = fields.Selection(string="Tipo",selection=[("maquina","Máquina"),("madera","Madera"),("autorroscante","Autorroscante"),("anclaje","Anclaje"),
                                                                      ("seguridad","Seguridad"),("concreto","Concreto"),("elevador","Elevador")])
-    tornillo_cabeza = fields.Selection(string="Cabeza",selection=[("boton","Botón"),("plana","Plana"),("phillips","Phillips"),("torx","Estrella (Torx)"),("hexagonal","Hexagonal"),
+    tornillo_cabeza = fields.Selection(string="Cabeza",selection=[("boton","Botón"),("conico","Cónico"),("phillips","Phillips"),("torx","Estrella (Torx)"),("hexagonal","Hexagonal"),
                                                                    ("redonda","Redonda"),("avellanada","Avellanada"),("seguridad","Avellanada"),("cuadrada","Cuadrada"),
                                                                    ("coche","Coche"),("socket","Socket")])
     tornillo_material = fields.Selection(string="Material",selection=[("carbon","Acero al carbón"),("inoxidable","Inoxidable"),("laton","Latón"),("aluminio","Aluminio"),

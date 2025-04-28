@@ -7,17 +7,29 @@
             <field name="view_mode">tree</field>
         </record>
 
+        <record id="dtm_diseno_consumibles_search" model="ir.ui.view">
+            <field name="name">dtm_diseno_consumibles_search</field>
+            <field name="model">dtm.diseno.consumibles</field>
+            <field name="arch" type="xml">
+               <search>
+                    <field name="codigo"></field>
+                    <field name="nombre"></field>
+                    <field name="fecha"></field>
+                    <field name="cantidad" options='{"type": "number"}'></field>
+
+               </search>
+            </field>
+        </record>
+
         <record id="dtm_diseno_consumibles_tree" model="ir.ui.view">
             <field name="name">dtm_diseno_corte_tree</field>
             <field name="model">dtm.diseno.consumibles</field>
             <field name="arch" type="xml">
                 <tree editable="bottom">
+                    <field name="fecha"></field>
                     <field name="codigo"></field>
                     <field name="nombre"></field>
-                    <field name="caracteristicas"></field>
                     <field name="cantidad" options='{"type": "number"}'></field>
-                    <field name="minimo" options='{"type": "number"}'       ></field>
-                    <field name="localizacion"></field>
                     <field name="entregado"></field>
                     <field name="recibe"></field>
                     <field name="notas"></field>
