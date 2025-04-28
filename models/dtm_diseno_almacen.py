@@ -18,6 +18,17 @@ class Materiales(models.Model):
     localizacion = fields.Char(string="Localización")
     minimo = fields.Integer(string="Mínimo")
 
+    def get_view(self, view_id=None, view_type='form', **options):
+        res = super(Materiales,self).get_view(view_id, view_type,**options)
+
+        for find_id in range(1, self.env['dtm.diseno.almacen'].search([], order='id desc', limit=1).id + 1):
+            if not self.env['dtm.diseno.almacen'].search([("id", "=", find_id)]):
+                self.env.cr.execute(f"SELECT setval('dtm_diseno_almacen_id_seq', {find_id}, false);")
+                break
+        return res
+
+
+
     # --------------------------------------Cantidades, datos para operaciones --------------------------------
     cantidad = fields.Integer(string="Stock", default=0)
     apartado = fields.Integer(string="Proyectado", readonly="True", default=0)
