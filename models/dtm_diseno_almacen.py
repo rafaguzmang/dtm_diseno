@@ -33,21 +33,22 @@ class Materiales(models.Model):
 
         for item in invetarioMateriales:
             materiales = diccionario.get(item.id)
-            # materiales.id or print(materiales.id)
+            # print(item)
             if materiales:
-                materiales.write({'nombre': materiales.nombre,
-                                  'medida': materiales.medida or '',
-                                  'cantidad': materiales.cantidad,
-                                  'apartado': materiales.apartado,
-                                  'disponible': materiales.disponible})
+                materiales.write({'nombre': item.nombre,
+                                  'medida': item.medida or '',
+                                  'cantidad': item.cantidad,
+                                  'apartado': item.apartado,
+                                  'disponible': item.disponible})
             else:
-                self.env.cr.execute(f"SELECT setval('dtm_materiales_id_seq', {materiales.id}, false);")
-                materiales.create({'id': materiales.id,
-                                   'nombre': materiales.nombre,
-                                   'medida': materiales.medida or '',
-                                   'cantidad': materiales.cantidad,
-                                   'apartado': materiales.apartado,
-                                   'disponible': materiales.disponible})
+                self.env.cr.execute(f"SELECT setval('dtm_materiales_id_seq', {item.id}, false);")
+                print(item,item.id)
+                self.env['dtm.materiales'].create({'id': item.id,
+                                   'nombre': item.nombre,
+                                   'medida': item.medida or '',
+                                   'cantidad': item.cantidad,
+                                   'apartado': item.apartado,
+                                   'disponible': item.disponible})
 
         # inventario = self.env['dtm.diseno.almacen'].search([]).mapped('id')
         # materiales = self.env['dtm.materiales'].search([('id','not in',inventario)])
