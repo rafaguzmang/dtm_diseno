@@ -20,7 +20,6 @@ class Materiales(models.Model):
 
     def get_view(self, view_id=None, view_type='form', **options):
         res = super(Materiales,self).get_view(view_id, view_type,**options)
-
         for find_id in range(1, self.env['dtm.diseno.almacen'].search([], order='id desc', limit=1).id + 1):
             if not self.env['dtm.diseno.almacen'].search([("id", "=", find_id)]):
                 self.env.cr.execute(f"SELECT setval('dtm_diseno_almacen_id_seq', {find_id}, false);")
@@ -46,10 +45,12 @@ class Materiales(models.Model):
                                    'cantidad': item.cantidad,
                                    'apartado': item.apartado,
                                    'disponible': item.disponible})
-
         inventario = self.env['dtm.diseno.almacen'].search([]).mapped('id')
         materiales = self.env['dtm.materiales'].search([('id','not in',inventario)])
-        materiales.unlink()
+
+        for row in materiales.mapped('id'):
+            if not self.env['dtm.materials.line'].search([('materials_list','!=',row)]):
+                self.env['dtm.materiales'].browse(row).unlink()
         return res
 
 
