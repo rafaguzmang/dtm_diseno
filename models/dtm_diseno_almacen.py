@@ -22,46 +22,45 @@ class Materiales(models.Model):
         res = super(Materiales,self).get_view(view_id, view_type,**options)
 
         #busca si hay ids disponibles de no haber pone el contaro en el último mas uno
-        # for find_id in range(1, self.env['dtm.diseno.almacen'].search([], order='id desc', limit=1).id + 1):
-        #     if not self.env['dtm.diseno.almacen'].search([("id", "=", find_id)]):
-        #         self.env.cr.execute(f"SELECT setval('dtm_diseno_almacen_id_seq', {find_id}, false);")
-        #         break
-        #
-        # # pasa de dtm_diseno_almacen a dtm_materiales todos los items que no sean consumibles, herramientas o equipos
-        # inventario_ids = self.env['dtm.diseno.almacen'].search(
-        #     [('caracteristicas', 'not in', ['consumible', 'herramienta','equipo'])]).mapped('id')
-        # # obtiene todos las filas de dtm_materiales
-        # materiales_existentes = self.env['dtm.materiales'].search([('id', 'in', inventario_ids)])
-        # # obtiene los ids de dtm_materiales
-        # diccionario = {mat.id: mat for mat in materiales_existentes}
+        for find_id in range(1, self.env['dtm.diseno.almacen'].search([], order='id desc', limit=1).id + 1):
+            if not self.env['dtm.diseno.almacen'].search([("id", "=", find_id)]):
+                self.env.cr.execute(f"SELECT setval('dtm_diseno_almacen_id_seq', {find_id}, false);")
+                break
+
+        # pasa de dtm_diseno_almacen a dtm_materiales todos los items que no sean consumibles, herramientas o equipos
+        inventario_ids = self.env['dtm.diseno.almacen'].search(
+            [('caracteristicas', 'not in', ['consumible', 'herramienta','equipo'])]).mapped('id')
+        # obtiene todos las filas de dtm_materiales
+        materiales_existentes = self.env['dtm.materiales'].search([('id', 'in', inventario_ids)])
+        # obtiene los ids de dtm_materiales
+        diccionario = {mat.id: mat for mat in materiales_existentes}
         # print('diccionario',diccionario)
-        # invetarioMateriales = self.env['dtm.diseno.almacen'].browse(inventario_ids)
-        # print('invetarioMateriales',invetarioMateriales)
-        # for item in invetarioMateriales:
-        #     materiales = diccionario.get(item.id)
-        #     if materiales:
-        #         materiales.write({'nombre': item.nombre,
-        #                           'medida': item.medida or '',
-        #                           'cantidad': item.cantidad,
-        #                           'apartado': item.apartado,
-        #                           'disponible': item.disponible})
-        #     else:
-        #         self.env.cr.execute(f"SELECT setval('dtm_materiales_id_seq', {item.id}, false);")
-        #         self.env['dtm.materiales'].create({'id': item.id,
-        #                            'nombre': item.nombre,
-        #                            'medida': item.medida or '',
-        #                            'cantidad': item.cantidad,
-        #                            'apartado': item.apartado,
-        #                            'disponible': item.disponible})
-        # inventario = self.env['dtm.diseno.almacen'].search([]).mapped('id')
-        # materiales = self.env['dtm.materiales'].search([('id','not in',inventario)])
-        #
-        # for row in materiales.mapped('id'):
-        #     if not self.env['dtm.materials.line'].search([('materials_list','!=',row)]):
-        #         self.env['dtm.materiales'].browse(row).unlink()
+        invetarioMateriales = self.env['dtm.diseno.almacen'].browse(inventario_ids)
+#         print('invetarioMateriales',invetarioMateriales)
+        for item in invetarioMateriales:
+            materiales = diccionario.get(item.id)
+            if materiales:
+                materiales.write({'nombre': item.nombre,
+                                  'medida': item.medida or '',
+                                  })
+            else:
+                self.env.cr.execute(f"SELECT setval('dtm_materiales_id_seq', {item.id}, false);")
+                self.env['dtm.materiales'].create({'id': item.id,
+                                                   'nombre': item.nombre,
+                                                   'medida': item.medida or '',
+                                                   'cantidad': item.cantidad,
+                                                   'apartado': item.apartado,
+                                                   'disponible': item.disponible
+                                                })
+        inventario = self.env['dtm.diseno.almacen'].search([]).mapped('id')
+        materiales = self.env['dtm.materiales'].search([('id','not in',inventario)])
+
+        for row in materiales.mapped('id'):
+            if not self.env['dtm.materials.line'].search([('materials_list','!=',row)]):
+                self.env['dtm.materiales'].browse(row).unlink()
 
         materiales = self.env['dtm.materiales'].search([])
-        # print('materiales',materiales)
+#         print('materiales',materiales)
         no_existen = []
         for material in materiales:
             repetidos = self.env['dtm.materiales'].search([('nombre','=',material.nombre),('medida','=',material.medida)])
