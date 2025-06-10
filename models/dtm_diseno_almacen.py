@@ -61,7 +61,7 @@ class Materiales(models.Model):
         #         self.env['dtm.materiales'].browse(row).unlink()
 
         materiales = self.env['dtm.materiales'].search([])
-        print('materiales',materiales)
+        # print('materiales',materiales)
         no_existen = []
         for material in materiales:
             repetidos = self.env['dtm.materiales'].search([('nombre','=',material.nombre),('medida','=',material.medida)])
@@ -74,7 +74,7 @@ class Materiales(models.Model):
                     if itemchk and itemchk.nombre != repetido.nombre and not self.env['dtm.materials.line'].search([('materials_list','=',repetido.id)]):
                         # print(repetido.id,itemchk.nombre,repetido.nombre)
                         no_existen.append(repetido.id)
-        print(list(set(no_existen)))
+        # print(list(set(no_existen)))
         self.env['dtm.materiales'].browse(list(set(no_existen))).unlink()
         return res
 
