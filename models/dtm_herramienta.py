@@ -13,9 +13,11 @@ class Herramientas(models.Model):
 
     def get_view(self, view_id=None, view_type='form', **options):
         res = super(Herramientas,self).get_view(view_id, view_type,**options)
-        get_invent = self.env['dtm.diseno.almacen'].search([('caracteristicas','=','herramienta')])
-        for record in get_invent:
-            get_this = self.env['dtm.herramientas'].search([('nombre','=',record.nombre)],limit=1)
-            vals = {'nombre':record.nombre}
-            get_this.write(vals) if get_this else get_this.create(vals)
+        herramientas = self.env['dtm.diseno.almacen'].search([('caracteristicas','=','herramienta')])
+        for herramienta in herramientas:
+            thisHerramientas = self.env['dtm.herramientas'].search([('nombre','=',herramienta.nombre)],limit=1)
+            vals = {'nombre':herramienta.nombre}
+            thisHerramientas.write(vals) if thisHerramientas else thisHerramientas.create(vals)
+
+
         return res

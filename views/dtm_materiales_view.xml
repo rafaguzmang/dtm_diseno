@@ -24,7 +24,7 @@
             <field name="view_mode">tree</field>
         </record>
 
-         <record id = "dtm_materiales_search" model="ir.ui.view">
+        <record id = "dtm_materiales_search" model="ir.ui.view">
                <field name="name">dtm.materiales.search</field>
                <field name="model">dtm.materiales</field>
                <field name ="arch" type="xml">
@@ -74,6 +74,9 @@
                    </search>
                </field>
            </record>
+
+<!--        <menuitem id="menu_materiales_accion"  action="dtm_diseno.dtm_materiales_accion"/>-->
+
     </data>
 
 </odoo>

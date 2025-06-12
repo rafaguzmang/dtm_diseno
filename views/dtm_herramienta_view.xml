@@ -21,6 +21,16 @@
                 </tree>
             </field>
         </record>
+        <record id = "dtm_herramientas_search" model="ir.ui.view">
+           <field name="name">dtm.herramientas.search</field>
+           <field name="model">dtm.herramientas</field>
+           <field name ="arch" type="xml">
+               <search>
+                    <field name="id"></field>
+                    <field name="nombre"></field>
+               </search>
+           </field>
+       </record>
 <!--        <menuitem id="menu_dtm_herramientas"  action="dtm_diseno.dtm_herramienta_accion" />-->
 
     </data>

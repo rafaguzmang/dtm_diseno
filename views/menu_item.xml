@@ -5,5 +5,7 @@
         <menuitem id="dtm_diseno_consumibles_menu" action="dtm_diseno_consumibles_action" />
         <menuitem id="menu_dtm_herramientas"  action="dtm_diseno.dtm_herramienta_accion"/>
         <menuitem id="menu_materiales_accion"  action="dtm_diseno.dtm_materiales_accion"/>
+        <menuitem id="menu_consumibles_accion"  action="dtm_diseno.dtm_consumibles_accion"/>
+
     </menuitem>
 </odoo>
