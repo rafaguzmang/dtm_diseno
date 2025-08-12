@@ -5,7 +5,7 @@
             <field name="name">dtm_materiales_tree</field>
             <field name="model">dtm.materiales</field>
             <field name="arch" type="xml">
-                <tree create="false" delete="false" >
+                <tree create="false" delete="false" editable="bottom" >
                     <field name="id"></field>
                     <field name="nombre"></field>
                     <field name="medida"></field>

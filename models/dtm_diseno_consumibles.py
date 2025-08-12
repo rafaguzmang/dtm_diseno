@@ -5,7 +5,7 @@ class Consumibles(models.Model):
     _description = 'Modelo para llevar el conteo de los consumibles'
 
     fecha = fields.Date(string='Fecha')
-    codigo = fields.Integer(strind="ID")
+    codigo = fields.Integer(string="ID")
     nombre = fields.Char(string="Nombre")
     cantidad = fields.Integer(string="Stock", default=0)
     entregado = fields.Char(string="Entregado")

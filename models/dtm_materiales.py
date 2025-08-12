@@ -8,7 +8,7 @@ class Materiales(models.Model):
 
     nombre = fields.Char(string='Material', readonly=True)
     medida = fields.Char(string='Medida',readonly=True)
-    cantidad = fields.Integer(string="Stock",readonly=True)
+    cantidad = fields.Integer(string="Stock",readonly=False)
     apartado = fields.Integer(string="Proyectado", readonly=True)
     disponible = fields.Integer(string="Disponible", readonly=True)
     minimo = fields.Integer(string="Mínimo", readonly=True)
