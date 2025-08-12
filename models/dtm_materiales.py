@@ -13,6 +13,8 @@ class Materiales(models.Model):
     disponible = fields.Integer(string="Disponible", readonly=True)
     minimo = fields.Integer(string="Mínimo", readonly=True)
     maximo = fields.Integer(string="Máximo", readonly=True)
+    mostrador = fields.Float(string="Mostrador")
+    mayoreo = fields.Float(string="Mayoreo")
 
     def name_get(self):
         res = []

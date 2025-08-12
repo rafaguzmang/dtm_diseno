@@ -14,6 +14,8 @@
                     <field name="disponible"></field>
                     <field name="minimo"></field>
                     <field name="maximo"></field>
+                    <field name="mostrador"></field>
+                    <field name="mayoreo"></field>
                 </tree>
             </field>
         </record>
