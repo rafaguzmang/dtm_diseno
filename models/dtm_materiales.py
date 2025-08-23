@@ -8,7 +8,7 @@ class Materiales(models.Model):
 
     nombre = fields.Char(string='Material', readonly=True)
     medida = fields.Char(string='Medida',readonly=True)
-    cantidad = fields.Integer(string="Stock",readonly=False)
+    cantidad = fields.Integer(string="Stock",readonly=True)
     apartado = fields.Integer(string="Proyectado", readonly=True)
     disponible = fields.Integer(string="Disponible", readonly=True)
     minimo = fields.Integer(string="Mínimo", readonly=True)
@@ -26,11 +26,10 @@ class Materiales(models.Model):
     # Se usa esta función para traer todos los materiales del inventario
     def get_view(self, view_id=None, view_type='form', **options):
         res = super(Materiales, self).get_view(view_id, view_type, **options)
-        # busca si hay ids disponibles de no haber pone el contaro en el último mas uno
-        for find_id in range(1, self.env['dtm.materiales'].search([], order='id desc', limit=1).id + 1):
-            if not self.env['dtm.materiales'].search([("id", "=", find_id)]):
-                self.env.cr.execute(f"SELECT setval('dtm_materiales_id_seq', {find_id}, false);")
-                break
+        # for find_id in range(1, self.env['dtm.materiales'].search([], order='id desc', limit=1).id + 1):
+        #     if not self.env['dtm.materiales'].search([("id", "=", find_id)]):
+        #         self.env.cr.execute(f"SELECT setval('dtm.materiales_id_seq', {find_id}, false);")
+        #         break
 
         return res
 
