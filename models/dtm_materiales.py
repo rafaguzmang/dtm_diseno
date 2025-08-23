@@ -26,7 +26,11 @@ class Materiales(models.Model):
     # Se usa esta función para traer todos los materiales del inventario
     def get_view(self, view_id=None, view_type='form', **options):
         res = super(Materiales, self).get_view(view_id, view_type, **options)
-
+        # busca si hay ids disponibles de no haber pone el contaro en el último mas uno
+        for find_id in range(1, self.env['dtm.materiales'].search([], order='id desc', limit=1).id + 1):
+            if not self.env['dtm.materiales'].search([("id", "=", find_id)]):
+                self.env.cr.execute(f"SELECT setval('dtm_materiales_id_seq', {find_id}, false);")
+                break
 
         return res
 
