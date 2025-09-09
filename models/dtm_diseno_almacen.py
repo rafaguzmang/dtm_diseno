@@ -18,11 +18,31 @@ class Materiales(models.Model):
     localizacion = fields.Char(string="Localización")
     minimo = fields.Integer(string="Mínimo")
 
+    # def write(self,vals):
+    #     res = super().write(vals)
+    #     for find_id in range(1, self.env['dtm.diseno.almacen'].search([], order='id desc', limit=1).id + 1):
+    #         print(find_id)
+    #         if not self.env['dtm.diseno.almacen'].search([("id", "=", find_id)]):
+    #             self.env.cr.execute(f"SELECT setval('dtm_diseno_almacen_id_seq', {find_id}, false);")
+    #             break
+    #
+    #     return res
+    # @api.model
+    # def create(self,vals):
+    #     res = super().create(vals)
+    #     for find_id in range(1, self.env['dtm.diseno.almacen'].search([], order='id desc', limit=1).id + 1):
+    #         print(find_id)
+    #         if not self.env['dtm.diseno.almacen'].search([("id", "=", find_id)]):
+    #             self.env.cr.execute(f"SELECT setval('dtm_diseno_almacen_id_seq', {find_id}, false);")
+    #             break
+    #     return res
+
     def get_view(self, view_id=None, view_type='form', **options):
         res = super(Materiales,self).get_view(view_id, view_type,**options)
 
         #busca si hay ids disponibles de no haber pone el contaro en el último mas uno
         for find_id in range(1, self.env['dtm.diseno.almacen'].search([], order='id desc', limit=1).id + 1):
+            print(find_id)
             if not self.env['dtm.diseno.almacen'].search([("id", "=", find_id)]):
                 self.env.cr.execute(f"SELECT setval('dtm_diseno_almacen_id_seq', {find_id}, false);")
                 break
