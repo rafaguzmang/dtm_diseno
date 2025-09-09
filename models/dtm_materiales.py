@@ -15,6 +15,7 @@ class Materiales(models.Model):
     maximo = fields.Integer(string="Máximo", readonly=True)
     mostrador = fields.Float(string="Mostrador")
     mayoreo = fields.Float(string="Mayoreo")
+    localizacion = fields.Char(string="Localización")
 
     def name_get(self):
         res = []
