@@ -6,11 +6,11 @@ class Materiales(models.Model):
     _rec_name = 'nombre'
     _order = 'id'
 
-    nombre = fields.Char(string='Material', readonly=True)
-    medida = fields.Char(string='Medida',readonly=True)
-    cantidad = fields.Integer(string="Stock",readonly=True)
-    apartado = fields.Integer(string="Proyectado", readonly=True)
-    disponible = fields.Integer(string="Disponible", readonly=True)
+    nombre = fields.Char(string='Material')
+    medida = fields.Char(string='Medida')
+    cantidad = fields.Integer(string="Stock")
+    apartado = fields.Integer(string="Proyectado")
+    disponible = fields.Integer(string="Disponible")
     minimo = fields.Integer(string="Mínimo", readonly=True)
     maximo = fields.Integer(string="Máximo", readonly=True)
     mostrador = fields.Float(string="Mostrador")
