@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="dtm_consumibles_historial_tree_view" model="ir.ui.view">
+            <field name="name">dtm.consumibles.historial.tree</field>
+            <field name="model">dtm.consumibles.historial</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="codigo"/>
+                    <field name="nombre"/>
+                    <field name="cantidad"/>
+                    <field name="recibe"/>
+                    <field name="create_date" string="Fecha"/>
+                    <field name="notas"/>
+                </tree>
+            </field>
+        </record>
+
+<!--        <record id="dtm_consumibles_historial_search_view" model="ir.ui.view">-->
+<!--            <field name="name">ProjectName.dtm_consumibles_historial.search</field>-->
+<!--            <field name="model">ProjectName.dtm_consumibles_historial</field>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <search string="ModelTitle">-->
+<!--                    <group expand="1" string="Group By">-->
+<!--                        <filter string="Example Field" name="example_field" domain="[]"-->
+<!--                                context="{'group_by':'example_field'}"/>-->
+<!--                    </group>-->
+<!--                </search>-->
+<!--            </field>-->
+<!--        </record>-->
+
+        <record id="dtm_consumibles_historial_act_window" model="ir.actions.act_window">
+            <field name="name">Historial</field>
+            <field name="res_model">dtm.consumibles.historial</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <menuitem id="dtm_consumibles_historial_menu" action="dtm_consumibles_historial_act_window"/>
+
+    </data>
+</odoo>
