@@ -4,6 +4,7 @@
      'application': False,
     "data":[
         #Security
+        'security/res_groups.xml',
         'security/ir.model.access.csv',
 
         #Views

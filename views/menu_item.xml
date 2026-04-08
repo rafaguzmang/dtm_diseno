@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-     <menuitem name="Inventario" id="menu_root_dtm_diseno">
-        <menuitem id="dtm_diseno_almacen_menu" action="dtm_diseno_almacen_accion" />
-        <menuitem id="dtm_diseno_consumibles_menu" action="dtm_diseno_consumibles_action" />
-        <menuitem id="menu_dtm_herramientas"  action="dtm_diseno.dtm_herramienta_accion"/>
-        <menuitem id="menu_materiales_accion"  action="dtm_diseno.dtm_materiales_accion"/>
-        <menuitem id="menu_consumibles_accion"  action="dtm_diseno.dtm_consumibles_accion"/>
-
+     <menuitem name="Conceptos" id="menu_root_dtm_diseno" groups="dtm_diseno.group_conceptos_admin">
+        <menuitem id="dtm_diseno_almacen_menu" action="dtm_diseno_almacen_accion" groups="dtm_diseno.group_conceptos_admin" />
+        <menuitem id="dtm_diseno_consumibles_menu" action="dtm_diseno_consumibles_action" groups="dtm_diseno.group_conceptos_admin" />
+        <menuitem id="menu_dtm_herramientas"  action="dtm_diseno.dtm_herramienta_accion" groups="dtm_diseno.group_conceptos_admin"/>
+        <menuitem id="menu_materiales_accion"  action="dtm_diseno.dtm_materiales_accion" groups="dtm_diseno.group_conceptos_admin"/>
+        <menuitem id="menu_consumibles_accion"  action="dtm_diseno.dtm_consumibles_accion" groups="dtm_diseno.group_conceptos_admin"/>
     </menuitem>
 </odoo>
