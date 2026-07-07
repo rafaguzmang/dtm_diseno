@@ -1,0 +1,23 @@
+<odoo>
+    <!-- Categoría primero -->
+    <record id="module_category_conceptos_admin" model="ir.module.category">
+        <field name="name">Conceptos</field>
+        <field name="description">Da permisos de administrador para los conceptos</field>
+        <field name="sequence">52</field>
+    </record>
+
+    <!-- Grupo admin -->
+    <record id="group_conceptos_admin" model="res.groups">
+        <field name="name">Conceptos Administración</field>
+        <field name="category_id" ref="module_category_conceptos_admin"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        <field name="users" eval="[(4, ref('base.user_admin'))]"/>
+    </record>
+
+    <!-- Grupo restricción -->
+    <record id="group_conceptos_user" model="res.groups">
+        <field name="name">Conceptos Restricción</field>
+        <field name="category_id" ref="module_category_conceptos_admin"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+</odoo>
