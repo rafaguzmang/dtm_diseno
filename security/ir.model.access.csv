@@ -1,12 +1,21 @@
 id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
 access_dtm_diseno_almacen_admin,access.dtm.diseno.almacen,model_dtm_diseno_almacen,group_conceptos_admin,1,1,1,1
-access_dtm_diseno_almacen_user,access.dtm.diseno.almacen,model_dtm_diseno_almacen,group_conceptos_user,0,1,1,0
-access_dtm_diseno_consumibles,access.dtm.diseno.consumibles,model_dtm_diseno_consumibles,group_conceptos_admin,1,1,1,1
-access_dtm_herramientas,access.dtm.herramientas,model_dtm_herramientas,group_conceptos_admin,1,1,1,1
+access_dtm_diseno_almacen_restriccion,access.dtm.diseno.almacen.restriccion,model_dtm_diseno_almacen,group_conceptos_restriccion,1,1,1,1
 
-access_dtm_materiales,access.dtm.materiales,model_dtm_materiales,group_conceptos_admin,1,1,1,1
-access_dtm_consumibles,access.dtm.consumibles,model_dtm_consumibles,group_conceptos_admin,1,1,1,1
-access_dtm_consumibles_historial,access.dtm.consumibles.historial,model_dtm_consumibles_historial,group_conceptos_admin,1,1,1,1
+access_dtm_diseno_consumibles_admin,access.dtm.diseno.consumibles.admin,model_dtm_diseno_consumibles,group_conceptos_admin,1,1,1,1
+access_dtm_diseno_consumibles_restriccion,access.dtm.diseno.consumibles.restriccion,model_dtm_diseno_consumibles,group_conceptos_restriccion,1,1,1,1
+
+access_dtm_herramientas_admin,access.dtm.herramientas.admin,model_dtm_herramientas,group_conceptos_admin,1,1,1,1
+access_dtm_herramientas_restriccion,access.dtm.herramientas.restriccion,model_dtm_herramientas,group_conceptos_restriccion,1,1,1,1
+
+access_dtm_materiales_admin,access.dtm.materiales.admin,model_dtm_materiales,group_conceptos_admin,1,1,1,1
+access_dtm_materiales_restriccion,access.dtm.materiales.restriccion,model_dtm_materiales,group_conceptos_restriccion,1,1,1,1
+
+access_dtm_consumibles_admin,access.dtm.consumibles.admin,model_dtm_consumibles,group_conceptos_admin,1,1,1,1
+access_dtm_consumibles_restriccion,access.dtm.consumibles.restriccion,model_dtm_consumibles,group_conceptos_restriccion,1,1,1,1
+
+access_dtm_consumibles_historial_admin,access.dtm.consumibles.historial.admin,model_dtm_consumibles_historial,group_conceptos_admin,1,1,1,1
+access_dtm_consumibles_historial_restriccion,access.dtm.consumibles.historial.restriccion,model_dtm_consumibles_historial,group_conceptos_restriccion,1,1,1,1
 
 
 
